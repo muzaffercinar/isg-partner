@@ -786,9 +786,9 @@
             <h3>Polis Tutanağı (Görünen)</h3>
             <p>Şoför %100</p>
         </div>
-        <div class="stat-card">
+        <div class="stat-card" id="card-isg-stat">
             <span class="stat-icon">🔍</span>
-            <h3>6331 İSG Raporu (Gerçek)</h3>
+            <h3 id="stat-isg-title">İşveren Kusuru (Görünen)</h3>
             <p id="stat-isg">İşveren %0</p>
         </div>
         <div class="stat-card success">
@@ -1517,6 +1517,12 @@ function updateGlobalStats() {
     if (dosyalar.length > 0) {
         const lastKusur = dosyalar[dosyalar.length - 1].kusur;
         document.getElementById('stat-isg').textContent = `İşveren %${lastKusur}`;
+        document.getElementById('stat-isg-title').textContent = '6331 İSG Raporu (Gerçek)';
+        document.getElementById('card-isg-stat').classList.add('success');
+    } else {
+        document.getElementById('stat-isg').textContent = `İşveren %0`;
+        document.getElementById('stat-isg-title').textContent = 'İşveren Kusuru (Görünen)';
+        document.getElementById('card-isg-stat').classList.remove('success');
     }
 }
 
