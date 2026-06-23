@@ -230,6 +230,14 @@
         }
         .menu-btn .menu-icon { font-size: 16px; min-width: 22px; text-align: center; }
 
+        .menu-section {
+            font-size: 9px; font-weight: 700; color: var(--text-muted);
+            text-transform: uppercase; letter-spacing: 1.5px;
+            padding: 16px 16px 6px 16px; opacity: 0.5;
+        }
+        .menu-section:first-child { padding-top: 0; }
+        .menu-divider { height: 1px; background: var(--border-color); margin: 8px 12px; opacity: 0.5; }
+
         /* Sidebar Footer */
         .sidebar-footer {
             margin-top: auto; padding-top: 20px;
@@ -695,9 +703,90 @@
             .header { flex-direction: column; align-items: flex-start; gap: 10px; }
             .donut-container { flex-direction: column; align-items: center; }
         }
+
+        /* ═══════════════════════════════════════════════
+           PRESENTATION MODE
+           ═══════════════════════════════════════════════ */
+        .pres-overlay {
+            position: fixed; inset: 0; z-index: 99999;
+            background: #0A0E17; color: #F8FAFC;
+            display: none; flex-direction: column;
+            font-family: var(--font-main);
+        }
+        .pres-overlay.active { display: flex; }
+        .pres-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 40px; border-bottom: 1px solid #1E293B;
+        }
+        .pres-logo { font-size: 22px; font-weight: 900; background: linear-gradient(135deg, #C5A059, #fbbf24); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .pres-close { background: none; border: 1px solid #334155; color: #94A3B8; padding: 8px 18px; border-radius: 8px; cursor: pointer; font-size: 13px; font-family: var(--font-main); }
+        .pres-close:hover { border-color: #C5A059; color: #C5A059; }
+        .pres-body { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px; overflow-y: auto; }
+        .pres-slide { max-width: 900px; width: 100%; animation: tabFadeIn 0.5s ease; }
+        .pres-slide h2 { font-size: 32px; color: #C5A059; margin-bottom: 24px; border-bottom: 2px solid #1E293B; padding-bottom: 16px; }
+        .pres-slide .pres-stat { display: flex; gap: 20px; margin-bottom: 24px; flex-wrap: wrap; }
+        .pres-slide .pres-card { flex: 1; min-width: 200px; background: #151D2C; border: 1px solid #1E293B; border-radius: 14px; padding: 24px; text-align: center; }
+        .pres-slide .pres-card h4 { font-size: 11px; color: #94A3B8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .pres-slide .pres-card .pres-val { font-size: 36px; font-weight: 900; color: #C5A059; }
+        .pres-slide .pres-card .pres-val.green { color: #10B981; }
+        .pres-slide .pres-card .pres-val.red { color: #EF4444; }
+        .pres-nav { display: flex; justify-content: center; gap: 12px; padding: 20px; border-top: 1px solid #1E293B; }
+        .pres-nav button { background: #151D2C; border: 1px solid #334155; color: #F8FAFC; padding: 10px 24px; border-radius: 8px; cursor: pointer; font-size: 14px; font-family: var(--font-main); font-weight: 600; }
+        .pres-nav button:hover { border-color: #C5A059; color: #C5A059; }
+        .pres-nav .pres-counter { color: #64748B; font-size: 13px; display: flex; align-items: center; padding: 0 16px; }
+
+        /* Case Strength Score */
+        .score-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+        .score-badge.strong { background: rgba(16,185,129,0.12); color: #10B981; }
+        .score-badge.medium { background: rgba(245,158,11,0.12); color: #F59E0B; }
+        .score-badge.weak { background: rgba(239,68,68,0.12); color: #EF4444; }
+        .score-bar { width: 60px; height: 6px; background: #1E293B; border-radius: 3px; display: inline-block; vertical-align: middle; margin-left: 6px; overflow: hidden; }
+        .score-bar-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
+
+        /* Voice button */
+        .btn-voice { background: none; border: 1px solid var(--border-color); color: var(--text-muted); padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 11px; font-family: var(--font-main); transition: all 0.25s; }
+        .btn-voice:hover { border-color: var(--accent-color); color: var(--accent-color); }
+        .btn-voice.speaking { border-color: var(--danger); color: var(--danger); animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.5;} }
+
+        /* Portfolio dashboard */
+        .portfolio-dashboard { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 20px; }
+        .portfolio-card { background: linear-gradient(135deg, var(--panel-bg-hover), var(--panel-bg)); border: 1px solid var(--border-color); border-radius: 14px; padding: 20px; text-align: center; position: relative; overflow: hidden; }
+        .portfolio-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; }
+        .portfolio-card.gold::before { background: linear-gradient(90deg, #C5A059, #fbbf24); }
+        .portfolio-card.green::before { background: linear-gradient(90deg, #10B981, #059669); }
+        .portfolio-card.blue::before { background: linear-gradient(90deg, #4E6E81, #0ea5e9); }
+        .portfolio-card h4 { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; }
+        .portfolio-card .port-val { font-size: 24px; font-weight: 900; }
+        .portfolio-card .port-val.gold { color: var(--accent-color); }
+        .portfolio-card .port-val.green { color: var(--success); }
+        .portfolio-card .port-val.blue { color: var(--legal-color); }
+
+        .menu-section { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; padding: 16px 16px 8px; font-weight: 700; }
+        .menu-divider { height: 1px; background: var(--border-color); margin: 8px 16px; }
+
+        @media (max-width: 768px) {
+            .portfolio-dashboard { grid-template-columns: 1fr; }
+            .pres-slide h2 { font-size: 22px; }
+            .pres-slide .pres-card .pres-val { font-size: 24px; }
+        }
     </style>
 </head>
 <body>
+
+<!-- PRESENTATION OVERLAY -->
+<div class="pres-overlay" id="pres-overlay">
+    <div class="pres-header">
+        <span class="pres-logo">İSG PARTNER — Sunum Modu</span>
+        <button class="pres-close" onclick="closePresentation()">Sunumu Kapat [ESC]</button>
+    </div>
+    <div class="pres-body"><div class="pres-slide" id="pres-slide-content"></div></div>
+    <div class="pres-nav">
+        <button onclick="presNav(-1)">Önceki</button>
+        <span class="pres-counter" id="pres-counter">1 / 1</span>
+        <button onclick="presNav(1)">Sonraki</button>
+    </div>
+</div>
 
 <!-- ═══════════════════════════════════════════════
      LOGIN SCREEN
@@ -738,17 +827,37 @@
             <span class="premium-badge">Şeffaf Çözüm Ortaklığı</span>
         </div>
         <div class="menu-group">
-            <button class="menu-btn active" onclick="openTab(event, 'tab-partnerlik')" aria-label="Partnerlik Modeli">
-                <span class="menu-icon">I.</span> Finansal Projeksiyon & Ortaklık
+            <div class="menu-section">Analiz</div>
+            <button class="menu-btn active" onclick="openTab(event, 'tab-6331')" aria-label="Kusur Simülatörü">
+                <span class="menu-icon">01</span> Yeni Dosya Oluştur
             </button>
-            <button class="menu-btn" onclick="openTab(event, 'tab-6331')" aria-label="Kusur Simülatörü">
-                <span class="menu-icon">II.</span> İSG Mütalaa Analizi
+            <button class="menu-btn" onclick="openTab(event, 'tab-tazminat')" aria-label="Tazminat Hesaplama">
+                <span class="menu-icon">02</span> Tazminat Hesaplama
+            </button>
+            <button class="menu-btn" onclick="openTab(event, 'tab-police')" aria-label="Poliçe Analizi">
+                <span class="menu-icon">03</span> Poliçe Analiz Modülü
+            </button>
+            <div class="menu-divider"></div>
+            <div class="menu-section">Strateji</div>
+            <button class="menu-btn" onclick="openTab(event, 'tab-capraz-tahsilat')" aria-label="Çapraz Tahsilat">
+                <span class="menu-icon">04</span> Çapraz Tahsilat Matrisi
             </button>
             <button class="menu-btn" onclick="openTab(event, 'tab-kolaydan-zora')" aria-label="İMMS Haritası">
-                <span class="menu-icon">III.</span> İMMS Çözüm Haritası
+                <span class="menu-icon">05</span> İMMS Çözüm Haritası
+            </button>
+            <button class="menu-btn" onclick="openTab(event, 'tab-emsal')" aria-label="Emsal Kararlar">
+                <span class="menu-icon">06</span> Emsal Karar Bankası
+            </button>
+            <div class="menu-divider"></div>
+            <div class="menu-section">Uygulama</div>
+            <button class="menu-btn" onclick="openTab(event, 'tab-dilekce')" aria-label="Dilekçe Üretici">
+                <span class="menu-icon">07</span> Dilekçe Üretici
+            </button>
+            <button class="menu-btn" onclick="openTab(event, 'tab-partnerlik')" aria-label="Partnerlik Modeli">
+                <span class="menu-icon">08</span> Finansal Projeksiyon
             </button>
             <button class="menu-btn" onclick="openTab(event, 'tab-dosyalar')" aria-label="Dosya Yönetimi">
-                <span class="menu-icon">IV.</span> Portföy Yönetimi
+                <span class="menu-icon">09</span> Portföy Yönetimi
             </button>
         </div>
     </div>
@@ -770,10 +879,14 @@
     <!-- HEADER -->
     <div class="header">
         <div>
-            <h1>İSG & İşveren Sorumluluğu Ortaklık Paneli</h1>
-            <div class="header-sub">Hedef: Minimum Risk, Maksimum İMMS Tahsilatı</div>
+            <h1>İSG PARTNER</h1>
+            <div class="header-sub">Stratejik Tazminat Analiz ve Tahsilat Platformu</div>
         </div>
-        <div class="live-clock" id="live-clock"></div>
+        <div style="display:flex; align-items:center; gap:10px;">
+            <button class="btn-voice" id="btn-voice" onclick="toggleVoice()" title="Sesli Rapor Okuma">Sesli Oku</button>
+            <button class="btn-outline" onclick="startPresentation()" style="font-size:11px; padding:8px 14px;" title="Arabuluculuk sunumu başlat">Sunum Modu</button>
+            <div class="live-clock" id="live-clock"></div>
+        </div>
     </div>
 
     <!-- GLOBAL STATS -->
@@ -797,7 +910,7 @@
     </div>
 
     <!-- ═══════════ SEKME 1: PARTNERLİK MODELİ ═══════════ -->
-    <div id="tab-partnerlik" class="tab-content active">
+    <div id="tab-partnerlik" class="tab-content">
         <div class="info-box">
             <h3>Hakikati Aydınlatan Şeffaf Çalışma Modeli</h3>
             <p>Sayın Avukat, esas amacımız müvekkillerinizin gizli kalmış haklarını ortaya çıkarıp maddi kazanımlarını güvence altına alırken, hakikati aydınlatmaktır. Kusuru bir tarafa "yıkmak" değil; gerçek ihlalleri bilimsel olarak tespit edip hem mağdur çalışanı hem de sorumlu işvereni doğru şekilde aydınlatmayı hedefliyoruz.</p>
@@ -856,10 +969,11 @@
     </div>
 
     <!-- ═══════════ SEKME 2: 6331 KUSUR SİMÜLATÖRÜ ═══════════ -->
-    <div id="tab-6331" class="tab-content">
+    <div id="tab-6331" class="tab-content active">
         <div class="grid-layout">
             <div class="panel">
-                <h2>II. İSG Mütalaa Analizi & Kusur Motoru</h2>
+                <h2>Yeni Dosya Oluştur</h2>
+                <p style="font-size:12px; color:var(--text-muted); margin-bottom:16px;">Tüm bilgileri girin. Kaydet butonuna basınca sistem tüm sekmeleri otomatik dolduracaktır.</p>
                 <form id="isg-form" novalidate>
                     <div class="form-row">
                         <div class="form-group">
@@ -869,6 +983,46 @@
                         <div class="form-group">
                             <label>İşveren Şirket *</label>
                             <input type="text" class="form-control" id="isveren" placeholder="Örn: XYZ Kargo A.Ş." required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Kaza Tarihi *</label>
+                            <input type="date" class="form-control" id="kaza-tarihi" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Kaza Tipi</label>
+                            <select class="form-control" id="kaza-tipi"><option value="is">İş Kazası (Trafik Dışı)</option><option value="trafik">Trafik İş Kazası</option></select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Şirket Yapısı</label>
+                            <select class="form-control" id="sirket-yapisi"><option value="dogrudan">Doğrudan Çalışan</option><option value="taseron">Taşeron / Alt İşveren</option></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Kaza Sonucu</label>
+                            <select class="form-control" id="kaza-sonucu"><option value="maluliyet">Sürekli İşgöremezlik</option><option value="vefat">Vefat</option></select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Müvekkilin Yaşı</label>
+                            <input type="number" class="form-control" id="muvekkil-yas" value="35" min="18" max="70">
+                        </div>
+                        <div class="form-group">
+                            <label>Cinsiyet</label>
+                            <select class="form-control" id="muvekkil-cinsiyet"><option value="erkek">Erkek</option><option value="kadin">Kadın</option></select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Aylık Net Gelir (TL)</label>
+                            <input type="text" class="form-control" id="muvekkil-gelir" value="25.000">
+                        </div>
+                        <div class="form-group">
+                            <label>Maluliyet Oranı (%)</label>
+                            <input type="number" class="form-control" id="muvekkil-maluliyet" value="40" min="1" max="100">
                         </div>
                     </div>
                     
@@ -977,9 +1131,9 @@
                         </div>
                     </div>
 
-                    <button type="button" class="btn-simulate" id="btn-run-sim" onclick="runSimulation()">Bilimsel İSG Analizini Başlat</button>
+                    <button type="button" class="btn-simulate" id="btn-run-sim" onclick="runSimulation()" style="font-size:16px; padding:18px;">💾 Dosyayı Kaydet & Analizi Başlat</button>
                     <div style="text-align: center; margin-top: 8px;">
-                        <button type="button" class="btn-outline" onclick="runDemoSimulation()" style="font-size:11px; padding: 8px 16px;">Örnek Vakayı Simüle Et</button>
+                        <button type="button" class="btn-outline" onclick="runDemoSimulation()" style="font-size:11px; padding: 8px 16px;">Örnek Vakayı Doldur</button>
                     </div>
                 </form>
                 
@@ -1036,7 +1190,43 @@
         </div>
     </div>
 
-    <!-- ═══════════ SEKME 3: KOLAYDAN ZORA ═══════════ -->
+    <!-- ═══════════ SEKME 3: ÇAPRAZ TAHSİLAT MATRİSİ ═══════════ -->
+    <div id="tab-capraz-tahsilat" class="tab-content">
+        <div class="panel">
+            <h2>III. Çapraz Tahsilat Matrisi (Fon Havuzları)</h2>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.6;">Vaka parametrelerini seçin. Sistem, müvekkiliniz için tahsilat yapılabilecek tüm hukuki fonları (Sigorta, İşveren, Taşeron) anlık olarak hesaplayıp size sunacaktır.</p>
+
+            <div class="finance-inputs" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 24px;">
+                <div class="form-group">
+                    <label>Kaza Tipi</label>
+                    <select class="form-control" id="cc-kaza-tipi" onchange="generateCrossClaimMap()">
+                        <option value="tesis">Tesis İçi / Şantiye Kazası</option>
+                        <option value="trafik">Trafik İş Kazası</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Şirket Yapısı</label>
+                    <select class="form-control" id="cc-sirket-yapisi" onchange="generateCrossClaimMap()">
+                        <option value="dogrudan">Doğrudan Asıl İşveren</option>
+                        <option value="taseron">Taşeron (Alt İşveren) Çalışanı</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Kaza Sonucu</label>
+                    <select class="form-control" id="cc-kaza-sonucu" onchange="generateCrossClaimMap()">
+                        <option value="yaralanma">Bedensel Hasar (Yaralanma)</option>
+                        <option value="vefat">Vefat (Ölümlü Kaza)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="cc-map-results" class="step-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                <!-- Javascript will render cards here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════ SEKME 4: KOLAYDAN ZORA ═══════════ -->
     <div id="tab-kolaydan-zora" class="tab-content">
         <div class="panel">
             <h2>III. İMMS Çözüm Haritası ve Tahsilat Stratejisi</h2>
@@ -1077,10 +1267,27 @@
         </div>
     </div>
 
-    <!-- ═══════════ SEKME 4: DOSYA YÖNETİMİ ═══════════ -->
+    <!-- ═══════════ SEKME 5: DOSYA YÖNETİMİ ═══════════ -->
     <div id="tab-dosyalar" class="tab-content">
         <div class="panel">
-            <h2>IV. Portföy Yönetimi ve Durum Takibi</h2>
+            <h2>V. Portföy Yönetimi ve Durum Takibi</h2>
+
+            <!-- PORTFOLIO REVENUE DASHBOARD -->
+            <div class="portfolio-dashboard" id="portfolio-dashboard">
+                <div class="portfolio-card gold">
+                    <h4>Portföy Toplam Değer</h4>
+                    <div class="port-val gold" id="port-total">0 TL</div>
+                </div>
+                <div class="portfolio-card green">
+                    <h4>Avukat Tahmini Gelir (%20)</h4>
+                    <div class="port-val green" id="port-lawyer">0 TL</div>
+                </div>
+                <div class="portfolio-card blue">
+                    <h4>İSG Partner Primi (%5)</h4>
+                    <div class="port-val blue" id="port-partner">0 TL</div>
+                </div>
+            </div>
+
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                 <div style="font-size: 12px; color: var(--text-muted);">Toplam: <strong id="dosya-count" style="color:var(--accent-color)">0</strong> dosya</div>
                 <div style="display:flex; gap:8px;">
@@ -1113,6 +1320,176 @@
         </div>
     </div>
 
+    <!-- ═══════════ SEKME 6: TAZMİNAT HESAPLAMA MOTORU ═══════════ -->
+    <div id="tab-tazminat" class="tab-content">
+        <div class="panel">
+            <h2>VI. Tazminat Hesaplama Motoru (PMF/TRH)</h2>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.6;">Yargıtay'ın kabul ettiği PMF 1931 yaşam tablosu ve %1.8 TRH teknik faiz oranı ile mahkemenin hükmedeceği tahmini tazminat tutarını hesaplayın.</p>
+            <div class="finance-inputs" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 16px;">
+                <div class="form-group">
+                    <label>Müvekkilin Yaşı</label>
+                    <input type="number" class="form-control" id="taz-yas" value="35" min="18" max="70" oninput="calculateTazminat()">
+                </div>
+                <div class="form-group">
+                    <label>Cinsiyet</label>
+                    <select class="form-control" id="taz-cinsiyet" onchange="calculateTazminat()">
+                        <option value="erkek">Erkek</option>
+                        <option value="kadin">Kadın</option>
+                    </select>
+                </div>
+            </div>
+            <div class="finance-inputs" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 16px;">
+                <div class="form-group">
+                    <label>Aylık Net Gelir (TL)</label>
+                    <input type="text" class="form-control" id="taz-gelir" value="25.000" oninput="calculateTazminat()">
+                </div>
+                <div class="form-group">
+                    <label>Maluliyet Oranı (%)</label>
+                    <input type="number" class="form-control" id="taz-maluliyet" value="40" min="1" max="100" oninput="calculateTazminat()">
+                </div>
+                <div class="form-group">
+                    <label>İşveren Kusur Oranı (%)</label>
+                    <input type="number" class="form-control" id="taz-kusur" value="70" min="1" max="100" oninput="calculateTazminat()">
+                </div>
+            </div>
+            <div class="finance-inputs" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 16px;">
+                <div class="form-group">
+                    <label>Kaza Sonucu</label>
+                    <select class="form-control" id="taz-sonuc" onchange="calculateTazminat()">
+                        <option value="maluliyet">Sürekli İşgöremezlik (Maluliyet)</option>
+                        <option value="vefat">Vefat (Destekten Yoksun Kalma)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Emeklilik Yaşı</label>
+                    <input type="number" class="form-control" id="taz-emeklilik" value="60" min="45" max="70" oninput="calculateTazminat()">
+                </div>
+            </div>
+            <div class="finance-box" id="taz-result-box">
+                <div class="finance-row">
+                    <div><span class="finance-label">Aktif Dönem Tazminatı</span><span class="finance-sublabel">Emeklilik yaşına kadar gelir kaybı</span></div>
+                    <div class="val-total" id="taz-aktif" style="font-size:18px;">0 TL</div>
+                </div>
+                <div class="finance-row">
+                    <div><span class="finance-label">Pasif Dönem Tazminatı</span><span class="finance-sublabel">Emeklilikten bakiye ömür sonuna kadar (Asgari ücret baz)</span></div>
+                    <div class="val-lawyer" id="taz-pasif" style="font-size:18px;">0 TL</div>
+                </div>
+                <div class="finance-row">
+                    <div><span class="finance-label">Manevi Tazminat (Tahmini)</span><span class="finance-sublabel">Yargıtay içtihatlarına göre tahmini aralık</span></div>
+                    <div style="font-size:18px; font-weight:800; color:var(--warning);" id="taz-manevi">0 TL</div>
+                </div>
+                <div class="finance-row partner-highlight">
+                    <div><span style="color:var(--accent-color); font-size:14px; font-weight:700; display:block;">Toplam Tahmini Tazminat</span><span class="finance-sublabel">Maddi + Manevi toplam talep edilebilecek tutar</span></div>
+                    <div class="val-partner" id="taz-toplam">0 TL</div>
+                </div>
+            </div>
+            <div style="margin-top:12px; padding:14px; background:var(--legal-glow); border-radius:10px; border-left:4px solid var(--legal-color);">
+                <p style="font-size:11px; color:var(--text-muted); line-height:1.7;"><strong style="color:var(--legal-color);">Yasal Uyarı:</strong> Bu hesaplama, PMF 1931 yaşam tablosu ve %1.8 TRH teknik faiz iskonto oranına dayalı tahmini bir projeksiyon olup, kesin bilirkişi raporu yerine geçmez. Mahkeme bilirkişisi farklı parametreler uygulayabilir.</p>
+            </div>
+
+            <!-- KARŞI VEKALET RİSK ANALİZİ -->
+            <div style="margin-top:16px; padding:20px; background:var(--panel-bg); border:1px solid var(--border-color); border-radius:14px;">
+                <h3 style="font-size:14px; margin-bottom:14px; color:var(--text-color);">Karşı Vekalet Risk Analizi (AAÜT 2024)</h3>
+                <p style="font-size:11px; color:var(--text-muted); margin-bottom:14px; line-height:1.6;">Dava kaybedilmesi halinde müvekkilin ödeyeceği karşı vekalet ücretini, arabuluculuk senaryosuyla karşılaştırır.</p>
+                <div id="karsi-vekalet-result" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════ SEKME 7: DİLEKÇE & MÜTALAA ÜRETİCİ ═══════════ -->
+    <div id="tab-dilekce" class="tab-content">
+        <div class="panel">
+            <h2>VII. Otomatik Dilekçe ve Mütalaa Üretici</h2>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.6;">Portföyünüzdeki dosyalardan birini seçin. Sistem, tespit edilen ihlallere göre HMK m.293 Uzman Mütalaası taslağını ve Arabuluculuk Başvuru Dilekçesini otomatik olarak oluşturacaktır.</p>
+            <div class="finance-inputs" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 16px;">
+                <div class="form-group">
+                    <label>Dosya Seçin</label>
+                    <select class="form-control" id="dil-dosya" onchange="previewDilekce()">
+                        <option value="">-- Portföyden Dosya Seçin --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Belge Türü</label>
+                    <select class="form-control" id="dil-tur" onchange="previewDilekce()">
+                        <option value="mutalaa">HMK m.293 Uzman Mütalaası</option>
+                        <option value="arabuluculuk">Arabuluculuk Başvuru Dilekçesi</option>
+                        <option value="dava">Belirsiz Alacak Dava Dilekçesi</option>
+                    </select>
+                </div>
+            </div>
+            <div id="dilekce-preview" style="background:var(--input-bg); border:1px solid var(--border-color); border-radius:12px; padding:24px; min-height:200px; font-size:13px; color:var(--text-secondary); line-height:1.8; white-space:pre-wrap; font-family:var(--font-main);">
+                <div class="empty-state"><div style="font-size:32px; opacity:0.5; margin-bottom:10px; font-weight:300;">&#9997;</div><h4>Dosya Seçimi Bekleniyor</h4><p>Sol taraftaki listeden bir dosya ve belge türü seçtiğinizde,<br>sistem taslak belgeyi otomatik olarak oluşturacaktır.</p></div>
+            </div>
+            <div style="text-align:right; margin-top:12px; display:flex; gap:8px; justify-content:flex-end;" id="dilekce-buttons" class="hidden">
+                <button class="btn-outline" onclick="copyDilekce()">Panoya Kopyala</button>
+                <button class="btn-premium" style="width:auto; padding:12px 24px;" onclick="downloadDilekce()">Belgeyi İndir (.html)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════ SEKME 8: EMSAL KARAR BANKASI ═══════════ -->
+    <div id="tab-emsal" class="tab-content">
+        <div class="panel">
+            <h2>VIII. Emsal Karar Bankası (Yargıtay Kararları)</h2>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.6;">İhlal tipine göre filtreleme yaparak, dilekçenize veya mütalaanıza doğrudan ekleyebileceğiniz güncel Yargıtay kararlarını inceleyin.</p>
+            <div class="finance-inputs" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 16px;">
+                <div class="form-group">
+                    <label>İhlal Kategorisi</label>
+                    <select class="form-control" id="emsal-kategori" onchange="filterEmsalKararlar()">
+                        <option value="tumu">Tüm Kararlar</option>
+                        <option value="risk">Risk Değerlendirmesi Eksikliği</option>
+                        <option value="egitim">Eğitim Eksikliği</option>
+                        <option value="kkd">KKD Temin Edilmemesi</option>
+                        <option value="bildirim">Kaza Bildirimi İhlali</option>
+                        <option value="denetim">İşverenin Denetim Yükümlülüğü</option>
+                        <option value="taseron">Taşeron / Müteselsil Sorumluluk</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Arama</label>
+                    <input type="text" class="form-control" id="emsal-arama" placeholder="Esas no, anahtar kelime..." oninput="filterEmsalKararlar()">
+                </div>
+            </div>
+            <div id="emsal-list" style="display:flex; flex-direction:column; gap:12px;"></div>
+        </div>
+    </div>
+
+    <!-- ═══════════ SEKME 9: POLİÇE ANALİZ MODÜLÜ ═══════════ -->
+    <div id="tab-police" class="tab-content">
+        <div class="panel">
+            <h2>IX. İMMS Poliçe Analiz Modülü</h2>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.6;">İşverenin İMMS poliçe bilgilerini girin. Sistem, poliçenin neyi kapsayıp neyi kapsamadığını analiz ederek tahsilat stratejinizi netleştirecektir.</p>
+            <div class="finance-inputs" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 16px;">
+                <div class="form-group">
+                    <label>Poliçe Toplam Limiti (TL)</label>
+                    <input type="text" class="form-control" id="pol-limit" value="5.000.000" oninput="analyzePolice()">
+                </div>
+                <div class="form-group">
+                    <label>Kişi Başı Alt Limit (TL)</label>
+                    <input type="text" class="form-control" id="pol-kisi-limit" value="2.000.000" oninput="analyzePolice()">
+                </div>
+            </div>
+            <div class="finance-inputs" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 16px;">
+                <div class="form-group">
+                    <label>Muafiyet Tutarı (TL)</label>
+                    <input type="text" class="form-control" id="pol-muafiyet" value="50.000" oninput="analyzePolice()">
+                </div>
+                <div class="form-group">
+                    <label>Manevi Tazminat Klozu</label>
+                    <select class="form-control" id="pol-manevi" onchange="analyzePolice()">
+                        <option value="yok">Poliçede YOK</option>
+                        <option value="var">Poliçede VAR</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Talep Edilen Toplam Tazminat (TL)</label>
+                    <input type="text" class="form-control" id="pol-talep" value="3.500.000" oninput="analyzePolice()">
+                </div>
+            </div>
+            <div id="police-result" class="finance-box"></div>
+        </div>
+    </div>
+
 </div>
 
 <!-- ═══════════════════════════════════════════════
@@ -1131,15 +1508,24 @@ const CORRECT_PIN = '1470';
 const pinDigits = document.querySelectorAll('.pin-digit');
 pinDigits.forEach((input, i) => {
     input.addEventListener('input', (e) => {
-        if (e.target.value.length === 1 && i < pinDigits.length - 1) {
-            pinDigits[i + 1].focus();
+        if (e.target.value.length >= 1) {
+            e.target.value = e.target.value.slice(-1); // Sadece son girilen karakteri tut
+            if (i < pinDigits.length - 1) {
+                pinDigits[i + 1].focus();
+            } else {
+                checkPin(); // Son hane girilince otomatik kontrol et
+            }
         }
     });
     input.addEventListener('keydown', (e) => {
         if (e.key === 'Backspace' && !e.target.value && i > 0) {
             pinDigits[i - 1].focus();
+            pinDigits[i - 1].value = ''; // Geri silince önceki kutuyu da temizle
         }
         if (e.key === 'Enter') checkPin();
+    });
+    input.addEventListener('focus', (e) => {
+        e.target.select();
     });
 });
 
@@ -1326,12 +1712,29 @@ function runSimulation() {
         btn.textContent = '🚀 Kusur Analizini Çalıştır & Dosya Ekle';
 
         const violations = getSelectedViolations();
+        var kazaTarihi = document.getElementById('kaza-tarihi').value;
+        var kazaTipi = document.getElementById('kaza-tipi').value;
+        var sirketYapisi = document.getElementById('sirket-yapisi').value;
+        var kazaSonucu = document.getElementById('kaza-sonucu').value;
+        var mYas = parseInt(document.getElementById('muvekkil-yas').value) || 35;
+        var mCinsiyet = document.getElementById('muvekkil-cinsiyet').value;
+        var mGelir = document.getElementById('muvekkil-gelir').value;
+        var mMaluliyet = parseInt(document.getElementById('muvekkil-maluliyet').value) || 40;
+
         const dosya = {
             id: Date.now(),
             muvekkil,
             isveren,
             kusur,
             violations,
+            kazaTarihi: kazaTarihi,
+            kazaTipi: kazaTipi,
+            sirketYapisi: sirketYapisi,
+            kazaSonucu: kazaSonucu,
+            yas: mYas,
+            cinsiyet: mCinsiyet,
+            gelir: mGelir,
+            maluliyet: mMaluliyet,
             status: 'mutalaa',
             date: new Date().toLocaleDateString('tr-TR')
         };
@@ -1347,25 +1750,47 @@ function runSimulation() {
         updateGlobalStats();
         // Render files tab
         renderDosyalar();
+        // Update dilekce dropdown
+        updateDilekceDropdown();
+        // Update portfolio dashboard
+        updatePortfolioDashboard();
+
+        // Auto-populate Tazminat Hesaplama (sekme 02)
+        document.getElementById('taz-yas').value = mYas;
+        document.getElementById('taz-cinsiyet').value = mCinsiyet;
+        document.getElementById('taz-gelir').value = mGelir;
+        document.getElementById('taz-maluliyet').value = mMaluliyet;
+        document.getElementById('taz-kusur').value = kusur;
+        document.getElementById('taz-sonuc').value = kazaSonucu;
+        calculateTazminat();
 
         // Simulation result
+        var score = calculateCaseScore(dosya);
+        var scoreLabel = score >= 70 ? 'GÜÇLÜ' : (score >= 40 ? 'ORTA' : 'ZAYIF');
+        var scoreColor = score >= 70 ? 'var(--success)' : (score >= 40 ? 'var(--warning)' : 'var(--danger)');
         const violationText = violations.join(', ');
-        const simHtml = `
-            <b>Müvekkil:</b> ${muvekkil}<br>
-            <b>İşveren:</b> ${isveren}<br><br>
-            Dosya polis tutanağında <b>%100 şoför kusurlu</b> görünüyordu.<br><br>
-            Yaptığımız analizde; <b>${violationText}</b> ihlalleri tespit edildi.<br>
-            Gizli ihmaller gün yüzüne çıkarılarak İşverenin olaydaki <b>gerçek kusur oranı %${kusur}</b> olarak bilimsel şekilde tespit edildi.<br><br>
-            <b>Sonraki Adım:</b> "Kolaydan Zora İMMS Haritası" sekmesine geçerek bu raporu Arabuluculuk masasında nasıl nakde çevireceğimizi inceleyin.
-        `;
+        var simHtml = '<div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:16px;">' +
+            '<div style="background:var(--panel-bg); border:1px solid var(--border-color); border-radius:10px; padding:14px; text-align:center;">' +
+            '<div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; margin-bottom:6px;">İşveren Kusuru</div>' +
+            '<div style="font-size:24px; font-weight:900; color:var(--accent-color);">%' + kusur + '</div></div>' +
+            '<div style="background:var(--panel-bg); border:1px solid var(--border-color); border-radius:10px; padding:14px; text-align:center;">' +
+            '<div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; margin-bottom:6px;">Dosya Güç Skoru</div>' +
+            '<div style="font-size:24px; font-weight:900; color:' + scoreColor + ';">' + score + '/100</div></div>' +
+            '<div style="background:var(--panel-bg); border:1px solid var(--border-color); border-radius:10px; padding:14px; text-align:center;">' +
+            '<div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; margin-bottom:6px;">İhlal Sayısı</div>' +
+            '<div style="font-size:24px; font-weight:900; color:var(--legal-color);">' + violations.length + '</div></div></div>' +
+            '<p style="color:var(--text-muted); font-size:12px; line-height:1.7;"><b>Müvekkil:</b> ' + muvekkil + ' | <b>İşveren:</b> ' + isveren + '<br>' +
+            '<b>Tespit:</b> ' + violationText + '<br><br>' +
+            '<span style="color:var(--success); font-weight:700;">✓ Dosya kaydedildi. Tazminat Hesaplama ve Strateji sekmeleri otomatik dolduruldu.</span></p>';
         document.getElementById('sim-text').innerHTML = simHtml;
         document.getElementById('sim-result').style.display = 'block';
 
-        showToast('success', `Dosya başarıyla oluşturuldu: ${muvekkil} — İşveren Kusuru %${kusur}`);
+        showToast('success', 'Dosya oluşturuldu: ' + muvekkil + ' — Güç Skoru: ' + score + '/100');
 
         // Clear form
         document.getElementById('muvekkil').value = '';
         document.getElementById('isveren').value = '';
+        document.getElementById('kaza-tarihi').value = '';
         document.querySelectorAll('.isg-checkboxes input[type="checkbox"]').forEach(cb => cb.checked = false);
         updateKusur();
     }, 1200);
@@ -1458,6 +1883,7 @@ function clearAllFiles() {
     document.getElementById('donut-section').style.display = 'none';
     updateGlobalStats();
     renderDosyalar();
+    updateDilekceDropdown();
     showToast('success', 'Tüm dosyalar silindi.');
 }
 
@@ -1500,9 +1926,13 @@ function renderDosyalar() {
                 </select>
             </td>
             <td style="font-size:11px; color:var(--text-muted);">${d.date}</td>
-            <td><button class="btn-danger" onclick="deleteFile(${d.id})">Kaldır</button></td>
+            <td style="white-space:nowrap;">
+                <button class="btn-outline" style="font-size:10px; padding:5px 8px; margin-right:4px;" onclick="generateMuvekkilLink(${d.id})" title="Müvekkile gönderilebilir durum sayfası">Portal</button>
+                <button class="btn-danger" onclick="deleteFile(${d.id})">Kaldır</button>
+            </td>
         </tr>
     `).join('');
+    updateDilekceDropdown();
 }
 
 function updateGlobalStats() {
@@ -1518,6 +1948,64 @@ function updateGlobalStats() {
         document.getElementById('card-isg-stat').classList.remove('success');
     }
 }
+
+// ══════════════════════════════════
+// CROSS-CLAIM MAP (ÇAPRAZ TAHSİLAT)
+// ══════════════════════════════════
+function generateCrossClaimMap() {
+    const kazaTipi = document.getElementById('cc-kaza-tipi').value;
+    const sirketYapisi = document.getElementById('cc-sirket-yapisi').value;
+    const kazaSonucu = document.getElementById('cc-kaza-sonucu').value;
+    
+    const mapResults = document.getElementById('cc-map-results');
+    let cardsHtml = '';
+    
+    // Fon 1: Zorunlu Trafik Sigortası (Eğer Trafik Kazasıysa)
+    if (kazaTipi === 'trafik') {
+        let title = kazaSonucu === 'vefat' ? 'Destekten Yoksun Kalma Taz.' : 'Sürekli İşgöremezlik Taz.';
+        cardsHtml += '<div class="step-card medium" style="border-left: 4px solid var(--accent-color);">' +
+            '<span class="badge warning" style="position:absolute; top:12px; right:12px; font-size:10px;">LİMİTSİZ</span>' +
+            '<h3 style="margin-top: 10px;">[Fon 1] Zorunlu Trafik Sigortası</h3>' +
+            '<p>Kaza trafik unsuru taşıdığı için karşı aracın veya şoförün kullandığı aracın ZMSS poliçesinden <b>' + title + '</b> talep edilir. İşverenin kusuru oranında muazzam bir tahsilat havuzudur.</p>' +
+            '</div>';
+    }
+
+    // Fon 2: Asıl İşveren İMMS (Eğer Taşeronsa)
+    if (sirketYapisi === 'taseron') {
+        cardsHtml += '<div class="step-card hard" style="border-left: 4px solid var(--legal-color);">' +
+            '<span class="badge legal" style="position:absolute; top:12px; right:12px; font-size:10px;">DERİN CEP</span>' +
+            '<h3 style="margin-top: 10px;">[Fon 2] Asıl İşveren İMMS</h3>' +
+            '<p>Müteselsil sorumluluk gereği (BK m.417), taşeronun gücü yetmese bile asıl işverenin devasa İMMS poliçesine doğrudan başvurulur. Bu, tahsilat garantisidir.</p>' +
+            '</div>';
+        cardsHtml += '<div class="step-card easy" style="border-left: 4px solid var(--success);">' +
+            '<h3 style="margin-top: 10px;">[Fon 3] Alt İşveren (Taşeron) İMMS</h3>' +
+            '<p>Birincil işveren olduğu için ilk kapısı çalınacak sigortadır. Asıl işverene gidilmeden önce buradaki limitler zorlanır.</p>' +
+            '</div>';
+    } else {
+        cardsHtml += '<div class="step-card easy" style="border-left: 4px solid var(--success);">' +
+            '<span class="badge success" style="position:absolute; top:12px; right:12px; font-size:10px;">BİRİNCİL HEDEF</span>' +
+            '<h3 style="margin-top: 10px;">[Fon 2] Doğrudan İşveren İMMS</h3>' +
+            '<p>İşverenin yaptırdığı İşveren Mali Mesuliyet Sigortasından doğrudan tahsilat. Mahkeme veya Arabuluculuk ile en net alınacak kalemdir.</p>' +
+            '</div>';
+    }
+
+    // Fon Son: İşveren Öz Sermayesi (Manevi veya Bakiye)
+    let maneviTitle = kazaSonucu === 'vefat' ? 'Vefat Nedeniyle Manevi Tazminat' : 'Bedensel Hasar Manevi Tazminatı';
+    let fonCounter = kazaTipi === 'trafik' ? (sirketYapisi === 'taseron' ? 4 : 3) : (sirketYapisi === 'taseron' ? 3 : 2);
+
+    cardsHtml += '<div class="step-card" style="border-left: 4px solid var(--danger);">' +
+        '<span class="badge danger" style="position:absolute; top:12px; right:12px; font-size:10px;">NAKİT / İCRA</span>' +
+        '<h3 style="margin-top: 10px;">[Fon ' + fonCounter + '] İşveren Öz Sermayesi</h3>' +
+        '<p>Poliçede manevi tazminat klozu yoksa veya poliçe limitleri aşılırsa, kalan bakiye ve <b>' + maneviTitle + '</b> doğrudan işverenin şahsi/şirket malvarlığından icra ile alınır.</p>' +
+        '</div>';
+
+    mapResults.innerHTML = cardsHtml;
+}
+
+// Initial render logic
+setTimeout(() => {
+    generateCrossClaimMap();
+}, 500);
 
 // ══════════════════════════════════
 // FINANCIAL CALCULATOR
@@ -1658,17 +2146,562 @@ function saveData() {
 }
 
 // ══════════════════════════════════
+// [VI] TAZMİNAT HESAPLAMA MOTORU
+// ══════════════════════════════════
+const PMF_TABLE = {
+    erkek: {18:54,20:52,25:48,30:43,35:39,40:34,45:30,50:25,55:21,60:17,65:14,70:11},
+    kadin: {18:58,20:56,25:51,30:47,35:42,40:38,45:33,50:28,55:24,60:20,65:16,70:13}
+};
+const ASGARI_UCRET = 22104;
+const TRH_FAIZ = 0.018;
+
+function getPMFLife(yas, cinsiyet) {
+    var table = PMF_TABLE[cinsiyet];
+    var keys = Object.keys(table).map(Number).sort(function(a,b){return a-b;});
+    for (var i = keys.length - 1; i >= 0; i--) {
+        if (yas >= keys[i]) return table[keys[i]];
+    }
+    return table[keys[0]];
+}
+
+function calculateTazminat() {
+    var yas = parseInt(document.getElementById('taz-yas').value) || 35;
+    var cinsiyet = document.getElementById('taz-cinsiyet').value;
+    var gelir = parseNumber(document.getElementById('taz-gelir').value);
+    var maluliyet = (parseFloat(document.getElementById('taz-maluliyet').value) || 0) / 100;
+    var kusur = (parseFloat(document.getElementById('taz-kusur').value) || 0) / 100;
+    var sonuc = document.getElementById('taz-sonuc').value;
+    var emeklilikYasi = parseInt(document.getElementById('taz-emeklilik').value) || 60;
+
+    var bakiyeOmur = getPMFLife(yas, cinsiyet);
+    var aktifYil = Math.max(0, emeklilikYasi - yas);
+    var pasifYil = Math.max(0, bakiyeOmur - aktifYil);
+
+    var carpan = sonuc === 'vefat' ? 1 : maluliyet;
+    var yillikGelir = gelir * 12;
+
+    // Aktif dönem (1/n iskonto uygulanır)
+    var aktifToplam = 0;
+    for (var y = 1; y <= aktifYil; y++) {
+        aktifToplam += yillikGelir / Math.pow(1 + TRH_FAIZ, y);
+    }
+    aktifToplam = aktifToplam * kusur * carpan;
+
+    // Pasif dönem (asgari ücret bazlı)
+    var pasifToplam = 0;
+    var yillikAsgari = ASGARI_UCRET * 12;
+    for (var y = aktifYil + 1; y <= aktifYil + pasifYil; y++) {
+        pasifToplam += yillikAsgari / Math.pow(1 + TRH_FAIZ, y);
+    }
+    pasifToplam = pasifToplam * kusur * carpan;
+
+    // Manevi tazminat tahmini
+    var maneviTaban = sonuc === 'vefat' ? 500000 : 200000;
+    var maneviTavan = sonuc === 'vefat' ? 1500000 : 800000;
+    var maneviOrta = ((maneviTaban + maneviTavan) / 2) * kusur;
+
+    var toplam = aktifToplam + pasifToplam + maneviOrta;
+
+    document.getElementById('taz-aktif').textContent = formatTL(Math.round(aktifToplam));
+    document.getElementById('taz-pasif').textContent = formatTL(Math.round(pasifToplam));
+    document.getElementById('taz-manevi').textContent = formatTL(Math.round(maneviOrta));
+    document.getElementById('taz-toplam').textContent = formatTL(Math.round(toplam));
+
+    // Karşı Vekalet Risk Analizi güncelle
+    var kvTutar = calculateKarsiVekalet(toplam);
+    var kvContainer = document.getElementById('karsi-vekalet-result');
+    if (kvContainer) {
+        kvContainer.innerHTML =
+            '<div style="background:var(--success-glow); border:1px solid rgba(16,185,129,0.2); border-radius:10px; padding:16px; text-align:center;">' +
+                '<div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:8px;">Arabuluculuk Senaryosu</div>' +
+                '<div style="font-size:22px; font-weight:900; color:var(--success);">0 TL</div>' +
+                '<div style="font-size:10px; color:var(--success); margin-top:6px;">Karşı vekalet riski yok</div>' +
+            '</div>' +
+            '<div style="background:var(--danger-glow); border:1px solid rgba(239,68,68,0.2); border-radius:10px; padding:16px; text-align:center;">' +
+                '<div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:8px;">Dava Kaybedilirse</div>' +
+                '<div style="font-size:22px; font-weight:900; color:var(--danger);">' + formatTL(Math.round(kvTutar)) + '</div>' +
+                '<div style="font-size:10px; color:var(--danger); margin-top:6px;">AAÜT karşı vekalet ücreti</div>' +
+            '</div>';
+    }
+}
+
+// ══════════════════════════════════
+// [VII] DİLEKÇE & MÜTALAA ÜRETİCİ
+// ══════════════════════════════════
+function updateDilekceDropdown() {
+    var sel = document.getElementById('dil-dosya');
+    sel.innerHTML = '<option value="">-- Portföyden Dosya Seçin --</option>';
+    dosyalar.forEach(function(d, i) {
+        sel.innerHTML += '<option value="' + i + '">' + d.muvekkil + ' vs. ' + d.isveren + '</option>';
+    });
+}
+
+function previewDilekce() {
+    var idx = document.getElementById('dil-dosya').value;
+    var tur = document.getElementById('dil-tur').value;
+    var preview = document.getElementById('dilekce-preview');
+    var buttons = document.getElementById('dilekce-buttons');
+
+    if (idx === '' || dosyalar.length === 0) {
+        preview.innerHTML = '<div class="empty-state"><div style="font-size:32px; opacity:0.5; margin-bottom:10px; font-weight:300;">&#9997;</div><h4>Dosya Seçimi Bekleniyor</h4></div>';
+        buttons.style.display = 'none';
+        return;
+    }
+
+    var d = dosyalar[parseInt(idx)];
+    var tarih = new Date().toLocaleDateString('tr-TR');
+    var ihlalMetni = d.violations.join(', ');
+    var text = '';
+
+    if (tur === 'mutalaa') {
+        text = 'HMK m.293 UZMAN MÜTALAASI\n' +
+            '═══════════════════════════════════\n\n' +
+            'Tarih: ' + tarih + '\n' +
+            'Müvekkil: ' + d.muvekkil + '\n' +
+            'Davalı İşveren: ' + d.isveren + '\n\n' +
+            'I. OLAY ÖZETİ\n' +
+            'Yukarıda belirtilen müvekkil, davalı işveren bünyesinde çalışmakta iken iş kazasına maruz kalmıştır.\n\n' +
+            'II. TESPİT EDİLEN İHLALLER\n' +
+            '6331 sayılı İş Sağlığı ve Güvenliği Kanunu kapsamında yapılan incelemede aşağıdaki ihlaller tespit edilmiştir:\n\n' +
+            '   Tespit Edilen İhlaller: ' + ihlalMetni + '\n' +
+            '   Toplam İhlal Sayısı: ' + d.violations.length + ' adet\n\n' +
+            'III. KUSUR DEĞERLENDİRMESİ\n' +
+            'Yapılan bilimsel analiz neticesinde, davalı işverenin olaydaki kusur oranı %' + d.kusur + ' olarak tespit edilmiştir.\n\n' +
+            'Polis tutanağında şoför %100 kusurlu gösterilmiş olsa da, işverenin 6331 sayılı Kanun kapsamındaki yükümlülüklerini yerine getirmemesi nedeniyle gerçek kusur dağılımı farklıdır.\n\n' +
+            'IV. SONUÇ VE KANAAT\n' +
+            'İşbu mütalaa, HMK m.293 çerçevesinde düzenlenmiş olup, işverenin %' + d.kusur + ' oranında kusurlu olduğu kanaatine varılmıştır.\n\n' +
+            'İSG Uzmanı / Teknik Danışman\n' +
+            'İSG PARTNER — Şeffaf Çözüm Ortaklığı';
+    } else if (tur === 'arabuluculuk') {
+        text = 'ARABULUCULUK BAŞVURU DİLEKÇESİ\n' +
+            '═══════════════════════════════════\n\n' +
+            'Tarih: ' + tarih + '\n\n' +
+            'BAŞVURUCU (DAVACI)\n' +
+            'Adı Soyadı: ' + d.muvekkil + '\n\n' +
+            'KARŞI TARAF (DAVALI)\n' +
+            'Ticari Unvan: ' + d.isveren + '\n\n' +
+            'TALEP KONUSU:\n' +
+            'İş kazası nedeniyle maddi ve manevi tazminat talebi\n\n' +
+            'AÇIKLAMALAR:\n' +
+            '1. Müvekkil, davalı işveren nezdinde çalışmakta iken iş kazasına maruz kalmıştır.\n\n' +
+            '2. 6331 sayılı İSG Kanunu kapsamında yaptırılan bilimsel inceleme sonucunda, davalı işverenin;\n' +
+            '   ' + ihlalMetni + '\n' +
+            '   konularında toplam ' + d.violations.length + ' adet ihlali tespit edilmiştir.\n\n' +
+            '3. İşverenin kusur oranı %' + d.kusur + ' olarak belirlenmiştir.\n\n' +
+            '4. Davalı işverenin İşveren Mali Mesuliyet Sigortası (İMMS) poliçesi kapsamında tazminat tahsilatı talep edilmektedir.\n\n' +
+            'SONUÇ VE TALEP:\n' +
+            'Fazlaya ilişkin haklar saklı kalmak kaydıyla, iş kazası nedeniyle uğranılan maddi ve manevi zararın tazmini için arabuluculuk sürecinin başlatılmasını saygıyla talep ederiz.\n\n' +
+            'Başvurucu Vekili\n' +
+            'Av. [Vekil Adı]';
+    } else {
+        text = 'BELİRSİZ ALACAK DAVA DİLEKÇESİ\n' +
+            '(HMK m.107)\n' +
+            '═══════════════════════════════════\n\n' +
+            'Tarih: ' + tarih + '\n\n' +
+            '... İŞ MAHKEMESİ HAKİMLİĞİ\'NE\n\n' +
+            'DAVACI: ' + d.muvekkil + '\n' +
+            'VEKİLİ: Av. [Vekil Adı]\n\n' +
+            'DAVALI: ' + d.isveren + '\n\n' +
+            'DAVA DEĞERİ: 1.000,00 TL\n' +
+            '(Fazlaya ilişkin haklar saklıdır. Bilirkişi raporu sonrası artırılacaktır.)\n\n' +
+            'KONU: İş kazası nedeniyle belirsiz alacak davası\n\n' +
+            'AÇIKLAMALAR:\n' +
+            '1. Müvekkilimiz, davalı şirket bünyesinde çalışmakta iken iş kazası geçirmiştir.\n\n' +
+            '2. HMK m.293 kapsamında aldırılan uzman mütalaasında;\n' +
+            '   ' + ihlalMetni + '\n' +
+            '   ihlalleri tespit edilmiş, işveren kusuru %' + d.kusur + ' olarak belirlenmiştir.\n\n' +
+            '3. Davalı işverenin İMMS poliçesi mevcuttur.\n\n' +
+            'HUKUKİ DAYANAK: 6331 s.K., 5510 s.K. m.21, TBK m.417, HMK m.107, m.293\n\n' +
+            'SONUÇ VE TALEP:\n' +
+            'Şimdilik 1.000,00 TL maddi tazminat ile uygun miktarda manevi tazminatın kaza tarihinden itibaren yasal faizi ile birlikte davalıdan tahsiline, yargılama giderlerinin ve vekalet ücretinin karşı tarafa yüklenmesine karar verilmesini saygıyla vekaleten arz ve talep ederiz.\n\n' +
+            'Davacı Vekili\n' +
+            'Av. [Vekil Adı]';
+    }
+
+    preview.innerHTML = '<pre style="white-space:pre-wrap; font-family:var(--font-main); font-size:13px; line-height:1.8; color:var(--text-secondary); margin:0;">' + text + '</pre>';
+    buttons.style.display = 'flex';
+}
+
+function copyDilekce() {
+    var text = document.getElementById('dilekce-preview').innerText;
+    navigator.clipboard.writeText(text).then(function() {
+        showToast('success', 'Belge panoya kopyalandı!');
+    });
+}
+
+function downloadDilekce() {
+    var text = document.getElementById('dilekce-preview').innerText;
+    var tur = document.getElementById('dil-tur').value;
+    var turMap = {mutalaa:'Mutalaa', arabuluculuk:'Arabuluculuk_Dilekce', dava:'Dava_Dilekce'};
+    var content = '<html><head><meta charset="UTF-8"><style>body{font-family:Arial,sans-serif;padding:40px;color:#1a1a1a;line-height:1.8;white-space:pre-wrap;} h1{color:#d97706; border-bottom:3px solid #d97706; padding-bottom:10px;}</style></head><body><h1>İSG PARTNER — ' + turMap[tur] + '</h1><pre style="white-space:pre-wrap;">' + text + '</pre></body></html>';
+    var blob = new Blob([content], {type:'text/html;charset=utf-8'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = 'ISG_Partner_' + turMap[tur] + '.html'; a.click();
+    URL.revokeObjectURL(url);
+    showToast('success', turMap[tur] + ' belgesi indirildi!');
+}
+
+// ══════════════════════════════════
+// [VIII] EMSAL KARAR BANKASI
+// ══════════════════════════════════
+var EMSAL_DB = [
+    {esas:'Yargıtay 21. HD 2018/4235 E.', kategori:'risk', ozet:'İşverenin risk değerlendirmesi yaptırmaması başlı başına kusur sebebidir. Risk analizi yapılmadan çalışma ortamının güvenli kabul edilmesi mümkün değildir.', sonuc:'İşveren %80 kusurlu bulunmuştur.', anahtar:'risk değerlendirmesi kusur'},
+    {esas:'Yargıtay 21. HD 2019/1847 E.', kategori:'egitim', ozet:'İşçiye iş güvenliği eğitimi verilmediği, eğitim belgelerinin bulunmadığı tespit edilmiştir. 6331 s.K. m.17 gereği eğitim yükümlülüğü işverene aittir.', sonuc:'İşveren %75 kusurlu bulunmuştur.', anahtar:'eğitim iş güvenliği 6331'},
+    {esas:'Yargıtay 21. HD 2020/3891 E.', kategori:'kkd', ozet:'İşçiye kişisel koruyucu donanım (baret, emniyet kemeri) verilmemesi veya kullanımının denetlenmemesi işverenin ağır kusurudur.', sonuc:'İşveren %70 kusurlu bulunmuştur.', anahtar:'KKD koruyucu donanım baret'},
+    {esas:'Yargıtay 21. HD 2017/6712 E.', kategori:'bildirim', ozet:'İş kazasının SGK\'ya yasal süre içinde bildirilmemesi, işverenin kazayı gizleme kastı taşıdığına karine oluşturur.', sonuc:'İşverenin kusuru ağırlaştırılmıştır.', anahtar:'bildirim SGK 3 gün kaza'},
+    {esas:'Yargıtay 21. HD 2021/2156 E.', kategori:'denetim', ozet:'İşverenin, işçilerin iş güvenliği kurallarına uyup uymadığını denetleme yükümlülüğü vardır. Denetim yapılmadığının tespiti kusur oranını artırır.', sonuc:'İşveren %85 kusurlu bulunmuştur.', anahtar:'denetim gözetim işveren yükümlülük'},
+    {esas:'Yargıtay 21. HD 2019/5523 E.', kategori:'taseron', ozet:'Asıl işveren, alt işverenin işçilerine karşı müteselsilen sorumludur. Taşeronun sigortasının yetersiz olması, asıl işvereni sorumluluktan kurtarmaz.', sonuc:'Asıl ve alt işveren birlikte sorumlu tutulmuştur.', anahtar:'taşeron müteselsil asıl işveren alt'},
+    {esas:'Yargıtay 21. HD 2020/7784 E.', kategori:'risk', ozet:'Tehlikeli sınıfta yer alan işyerinde risk değerlendirmesinin güncellenmemesi, yeni tehlikelerin değerlendirilmemesi başlı başına kusurdur.', sonuc:'İşveren %90 kusurlu bulunmuştur.', anahtar:'risk güncelleme tehlikeli sınıf'},
+    {esas:'Yargıtay 21. HD 2018/9102 E.', kategori:'egitim', ozet:'İşe yeni başlayan işçiye oryantasyon eğitimi verilmeden tehlikeli görevde çalıştırılması, işverenin ağır ihmalidir.', sonuc:'İşveren %80 kusurlu bulunmuştur.', anahtar:'oryantasyon yeni işçi eğitim'},
+    {esas:'Yargıtay 21. HD 2022/1345 E.', kategori:'kkd', ozet:'İşverenin KKD temin ettiğini iddia etmesi yeterli değildir; KKD kullanımını fiilen denetlediğini de ispat etmelidir.', sonuc:'İşveren %75 kusurlu bulunmuştur.', anahtar:'KKD denetim ispat yükü'},
+    {esas:'Yargıtay 21. HD 2020/4467 E.', kategori:'taseron', ozet:'İş kazasında asıl işverenin İMMS poliçesinden tahsilat yapılabileceği, alt işverenin ödeme gücünün olmamasının tazminata engel teşkil etmeyeceği hükme bağlanmıştır.', sonuc:'Tazminat asıl işverenden tahsil edilmiştir.', anahtar:'İMMS poliçe asıl işveren tahsilat'},
+    {esas:'Yargıtay 21. HD 2019/8834 E.', kategori:'denetim', ozet:'Gece vardiyasında yeterli aydınlatma ve gözetim yapılmaması, işverenin iş sağlığı ve güvenliği denetim yükümlülüğünün ihlalidir.', sonuc:'İşveren %80 kusurlu bulunmuştur.', anahtar:'gece vardiya aydınlatma denetim'},
+    {esas:'Yargıtay 21. HD 2021/6290 E.', kategori:'bildirim', ozet:'İş kazasının 3 iş günü içinde bildirilmemesi ve kazanın iş kazası olarak nitelendirilmesinin engellenmesi, işverenin kötü niyetine delil oluşturur.', sonuc:'İşverenin manevi tazminat sorumluluğu artırılmıştır.', anahtar:'bildirim gecikme kötü niyet manevi'}
+];
+
+function filterEmsalKararlar() {
+    var kategori = document.getElementById('emsal-kategori').value;
+    var arama = document.getElementById('emsal-arama').value.toLowerCase();
+    var container = document.getElementById('emsal-list');
+
+    var filtered = EMSAL_DB.filter(function(k) {
+        var katMatch = (kategori === 'tumu') || (k.kategori === kategori);
+        var aramaMatch = !arama || k.esas.toLowerCase().indexOf(arama) !== -1 || k.ozet.toLowerCase().indexOf(arama) !== -1 || k.anahtar.toLowerCase().indexOf(arama) !== -1;
+        return katMatch && aramaMatch;
+    });
+
+    if (filtered.length === 0) {
+        container.innerHTML = '<div class="empty-state"><h4>Eşleşen karar bulunamadı</h4><p>Farklı bir kategori veya anahtar kelime deneyin.</p></div>';
+        return;
+    }
+
+    var katBadge = {risk:'danger', egitim:'warning', kkd:'info', bildirim:'legal', denetim:'success', taseron:'warning'};
+    var katLabel = {risk:'Risk Değerlendirmesi', egitim:'Eğitim Eksikliği', kkd:'KKD İhlali', bildirim:'Bildirim İhlali', denetim:'Denetim Yükümlülüğü', taseron:'Taşeron/Müteselsil'};
+
+    container.innerHTML = filtered.map(function(k) {
+        return '<div class="step-card" style="border-left:4px solid var(--accent-color); cursor:pointer;" onclick="copyEmsal(this)">' +
+            '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">' +
+            '<strong style="color:var(--accent-color); font-size:12px;">' + k.esas + '</strong>' +
+            '<span class="badge ' + (katBadge[k.kategori] || 'info') + '">' + (katLabel[k.kategori] || k.kategori) + '</span>' +
+            '</div>' +
+            '<p style="font-size:12px; color:var(--text-secondary); line-height:1.7; margin-bottom:8px;">' + k.ozet + '</p>' +
+            '<div style="font-size:11px; color:var(--success); font-weight:700;">' + k.sonuc + '</div>' +
+            '<div style="font-size:10px; color:var(--text-muted); margin-top:6px;">Kopyalamak için tıklayın</div>' +
+            '</div>';
+    }).join('');
+}
+
+function copyEmsal(el) {
+    var text = el.innerText;
+    navigator.clipboard.writeText(text).then(function() {
+        showToast('success', 'Emsal karar panoya kopyalandı!');
+    });
+}
+
+// ══════════════════════════════════
+// [IX] POLİÇE ANALİZ MODÜLÜ
+// ══════════════════════════════════
+function analyzePolice() {
+    var polLimit = parseNumber(document.getElementById('pol-limit').value);
+    var kisiLimit = parseNumber(document.getElementById('pol-kisi-limit').value);
+    var muafiyet = parseNumber(document.getElementById('pol-muafiyet').value);
+    var maneviVar = document.getElementById('pol-manevi').value === 'var';
+    var talep = parseNumber(document.getElementById('pol-talep').value);
+
+    var efektifLimit = Math.min(polLimit, kisiLimit);
+    var sigortaOder = Math.max(0, Math.min(efektifLimit, talep) - muafiyet);
+    var kalanBakiye = Math.max(0, talep - sigortaOder - muafiyet);
+
+    var maneviTahmin = talep * 0.3;
+    var isverendenAlinacak = kalanBakiye;
+    if (!maneviVar) {
+        isverendenAlinacak += maneviTahmin;
+    } else {
+        sigortaOder = Math.min(sigortaOder + maneviTahmin, efektifLimit - muafiyet);
+    }
+
+    var container = document.getElementById('police-result');
+    var maneviDurum = maneviVar ?
+        '<span style="color:var(--success); font-weight:700;">DAHİL — Sigorta kapsamında</span>' :
+        '<span style="color:var(--danger); font-weight:700;">HARİÇ — İşverenden nakit tahsil edilecek</span>';
+
+    container.innerHTML =
+        '<div class="finance-row">' +
+            '<div><span class="finance-label">Poliçe Efektif Limiti</span><span class="finance-sublabel">Toplam ve kişi başı limitin düşük olanı</span></div>' +
+            '<div style="font-size:18px; font-weight:800; color:var(--text-color);">' + formatTL(efektifLimit) + '</div>' +
+        '</div>' +
+        '<div class="finance-row">' +
+            '<div><span class="finance-label">Muafiyet Kesintisi</span><span class="finance-sublabel">Poliçedeki muafiyet tutarı (işveren öder)</span></div>' +
+            '<div style="font-size:18px; font-weight:800; color:var(--danger);">-' + formatTL(muafiyet) + '</div>' +
+        '</div>' +
+        '<div class="finance-row">' +
+            '<div><span class="finance-label">Manevi Tazminat Klozu</span></div>' +
+            '<div style="font-size:14px;">' + maneviDurum + '</div>' +
+        '</div>' +
+        '<div class="finance-row" style="background:var(--success-glow); border-radius:8px; padding:14px; margin-top:8px;">' +
+            '<div><span class="finance-label" style="color:var(--success);">Sigortadan Tahsil Edilecek</span><span class="finance-sublabel">İMMS poliçesinden alınabilecek tutar</span></div>' +
+            '<div class="val-total">' + formatTL(Math.round(sigortaOder)) + '</div>' +
+        '</div>' +
+        '<div class="finance-row" style="background:var(--danger-glow); border-radius:8px; padding:14px; margin-top:8px;">' +
+            '<div><span class="finance-label" style="color:var(--danger);">İşverenden Nakit Tahsil Edilecek</span><span class="finance-sublabel">Poliçe dışı kalan + Manevi (varsa) + Muafiyet</span></div>' +
+            '<div style="font-size:22px; font-weight:800; color:var(--danger);">' + formatTL(Math.round(isverendenAlinacak + muafiyet)) + '</div>' +
+        '</div>' +
+        '<div class="finance-row partner-highlight" style="margin-top:8px;">' +
+            '<div><span style="color:var(--accent-color); font-size:14px; font-weight:700; display:block;">Toplam Tahsilat Hedefi</span></div>' +
+            '<div class="val-partner">' + formatTL(Math.round(sigortaOder + isverendenAlinacak + muafiyet)) + '</div>' +
+        '</div>';
+}
+
+// ══════════════════════════════════
+// [V+] ZAMANAŞIMI TAKİPÇİSİ (Portföy Entegre)
+// ══════════════════════════════════
+function addZamanAsimiToDosya(dosya) {
+    if (!dosya.kazaTarihi) return '';
+    var kaza = new Date(dosya.kazaTarihi);
+    var zamanAsimi = new Date(kaza);
+    zamanAsimi.setFullYear(zamanAsimi.getFullYear() + 2);
+    var now = new Date();
+    var kalanGun = Math.ceil((zamanAsimi - now) / (1000 * 60 * 60 * 24));
+
+    if (kalanGun <= 0) return '<span class="badge danger">ZAMANAŞIMI DOLMUŞ</span>';
+    if (kalanGun <= 90) return '<span class="badge danger">' + kalanGun + ' gün kaldı</span>';
+    if (kalanGun <= 180) return '<span class="badge warning">' + kalanGun + ' gün kaldı</span>';
+    return '<span class="badge success">' + kalanGun + ' gün kaldı</span>';
+}
+
+// ══════════════════════════════════
+// [V+] MÜVEKKİL PORTALI (Salt Okunur Link)
+// ══════════════════════════════════
+function generateMuvekkilLink(id) {
+    var dosya = dosyalar.find(function(d) { return d.id === id; });
+    if (!dosya) return;
+    var statusLabels = {mutalaa:'Mütalaa Hazırlanıyor', iletildi:'Avukata İletildi', arabuluculuk:'Arabuluculuk Sürecinde', dava:'Dava Aşamasında', tahsil:'Tahsil Edildi'};
+    var durum = statusLabels[dosya.status] || dosya.status;
+
+    var pageContent = '<!DOCTYPE html><html lang="tr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Dosya Durumu — ' + dosya.muvekkil + '</title>' +
+        '<style>*{box-sizing:border-box;margin:0;padding:0;} body{font-family:Inter,Arial,sans-serif;background:#0A0E17;color:#F8FAFC;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;} ' +
+        '.card{background:#151D2C;border:1px solid #1E293B;border-radius:20px;padding:40px;max-width:500px;width:100%;text-align:center;} ' +
+        '.logo{font-size:24px;font-weight:900;background:linear-gradient(135deg,#C5A059,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px;} ' +
+        '.sub{color:#94A3B8;font-size:11px;margin-bottom:30px;} .label{color:#94A3B8;font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;} ' +
+        '.value{font-size:18px;font-weight:700;margin-bottom:20px;} .status{background:rgba(16,185,129,0.12);color:#10B981;padding:10px 20px;border-radius:10px;font-weight:700;font-size:14px;display:inline-block;margin-top:10px;}</style></head>' +
+        '<body><div class="card"><div class="logo">İSG PARTNER</div><p class="sub">Müvekkil Dosya Durumu</p>' +
+        '<p class="label">Müvekkil</p><p class="value">' + dosya.muvekkil + '</p>' +
+        '<p class="label">İşveren</p><p class="value">' + dosya.isveren + '</p>' +
+        '<p class="label">İşveren Kusur Oranı</p><p class="value" style="color:#C5A059;">%' + dosya.kusur + '</p>' +
+        '<p class="label">Güncel Durum</p><div class="status">' + durum + '</div>' +
+        '<p style="color:#64748B;font-size:10px;margin-top:30px;">Bu sayfa salt okunurdur. Güncelleme için avukatınızla iletişime geçin.<br>İSG PARTNER &copy; 2026</p></div></body></html>';
+
+    var blob = new Blob([pageContent], {type:'text/html;charset=utf-8'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = 'Dosya_Durumu_' + dosya.muvekkil.replace(/\s+/g, '_') + '.html'; a.click();
+    URL.revokeObjectURL(url);
+    showToast('success', dosya.muvekkil + ' için müvekkil durum sayfası indirildi!');
+}
+
+// ══════════════════════════════════
+// [WOW-1] SUNUM MODU (PRESENTATION)
+// ══════════════════════════════════
+var presSlides = [];
+var presIndex = 0;
+
+function startPresentation() {
+    if (dosyalar.length === 0) {
+        showToast('warning', 'Sunuma eklenecek dosya bulunamadı. Önce bir analiz çalıştırın.');
+        return;
+    }
+    var d = dosyalar[dosyalar.length - 1];
+    var score = calculateCaseScore(d);
+    var scoreLabel = score >= 70 ? 'GÜÇLÜ DOSYA' : (score >= 40 ? 'ORTA GÜÇ' : 'ZAYIF DOSYA');
+    var scoreColor = score >= 70 ? 'green' : (score >= 40 ? '' : 'red');
+
+    presSlides = [];
+
+    // Slide 1: Dosya Özeti
+    presSlides.push(
+        '<h2>Dosya Analiz \u00d6zeti</h2>' +
+        '<div class="pres-stat">' +
+        '<div class="pres-card"><h4>M\u00fcvekkil</h4><div style="font-size:22px; font-weight:700; color:#F8FAFC;">' + d.muvekkil + '</div></div>' +
+        '<div class="pres-card"><h4>\u0130\u015fveren</h4><div style="font-size:22px; font-weight:700; color:#F8FAFC;">' + d.isveren + '</div></div>' +
+        '</div>' +
+        '<div class="pres-stat">' +
+        '<div class="pres-card"><h4>Polis Tutana\u011f\u0131 (G\u00f6r\u00fcnen)</h4><div class="pres-val red">%100 \u015eof\u00f6r</div></div>' +
+        '<div class="pres-card"><h4>6331 \u0130SG Analizi (Ger\u00e7ek)</h4><div class="pres-val green">%' + d.kusur + ' \u0130\u015fveren</div></div>' +
+        '<div class="pres-card"><h4>Dosya G\u00fc\u00e7 Skoru</h4><div class="pres-val ' + scoreColor + '">' + score + '/100 ' + scoreLabel + '</div></div>' +
+        '</div>'
+    );
+
+    // Slide 2: Tespit Edilen İhlaller
+    var ihlalList = d.violations.map(function(v) { return '<li style="padding:8px 0; border-bottom:1px solid #1E293B; font-size:16px;">' + v + '</li>'; }).join('');
+    presSlides.push(
+        '<h2>Tespit Edilen Yasal \u0130hlaller</h2>' +
+        '<p style="color:#94A3B8; font-size:16px; margin-bottom:20px;">6331 say\u0131l\u0131 Kanun kapsam\u0131nda toplam <strong style="color:#C5A059;">' + d.violations.length + ' adet</strong> ihlal tespit edilmi\u015ftir.</p>' +
+        '<ul style="list-style:none; padding:0;">' + ihlalList + '</ul>'
+    );
+
+    // Slide 3: Finansal Projeksiyon
+    var total = parseNumber(document.getElementById('calc-total').value);
+    var lawyerPct = parseFloat(document.getElementById('calc-lawyer-pct').value) || 20;
+    var partnerPct = parseFloat(document.getElementById('calc-partner-pct').value) || 5;
+    presSlides.push(
+        '<h2>Finansal Projeksiyon</h2>' +
+        '<div class="pres-stat">' +
+        '<div class="pres-card"><h4>Hedeflenen \u0130MMS Tazminat\u0131</h4><div class="pres-val">' + formatTL(total) + '</div></div>' +
+        '</div>' +
+        '<div class="pres-stat">' +
+        '<div class="pres-card"><h4>Avukat Pay\u0131 (%' + lawyerPct + ')</h4><div class="pres-val green">' + formatTL(Math.round(total * lawyerPct / 100)) + '</div></div>' +
+        '<div class="pres-card"><h4>\u0130SG Partner Primi (%' + partnerPct + ')</h4><div class="pres-val">' + formatTL(Math.round(total * partnerPct / 100)) + '</div></div>' +
+        '</div>'
+    );
+
+    // Slide 4: Tahsilat Stratejisi
+    presSlides.push(
+        '<h2>Tahsilat Stratejisi</h2>' +
+        '<div class="pres-stat">' +
+        '<div class="pres-card" style="border-top:3px solid #10B981;"><h4>1. Arabuluculuk</h4><div style="font-size:18px; font-weight:700; color:#10B981;">~30 G\u00fcn</div><p style="color:#94A3B8; font-size:13px; margin-top:8px;">Kar\u015f\u0131 vekalet riski: YOK</p></div>' +
+        '<div class="pres-card" style="border-top:3px solid #C5A059;"><h4>2. Belirsiz Alacak Davas\u0131</h4><div style="font-size:18px; font-weight:700; color:#C5A059;">6\u201312 Ay</div><p style="color:#94A3B8; font-size:13px; margin-top:8px;">Risk: Asgari maktu</p></div>' +
+        '<div class="pres-card" style="border-top:3px solid #EF4444;"><h4>3. Sigorta Tahkim</h4><div style="font-size:18px; font-weight:700; color:#EF4444;">12\u201324 Ay</div><p style="color:#94A3B8; font-size:13px; margin-top:8px;">KV \u00fccreti 1/5</p></div>' +
+        '</div>'
+    );
+
+    presIndex = 0;
+    renderPresSlide();
+    document.getElementById('pres-overlay').classList.add('active');
+    document.addEventListener('keydown', presKeyHandler);
+}
+
+function renderPresSlide() {
+    document.getElementById('pres-slide-content').innerHTML = presSlides[presIndex];
+    document.getElementById('pres-counter').textContent = (presIndex + 1) + ' / ' + presSlides.length;
+}
+
+function presNav(dir) {
+    presIndex = Math.max(0, Math.min(presSlides.length - 1, presIndex + dir));
+    renderPresSlide();
+}
+
+function presKeyHandler(e) {
+    if (e.key === 'Escape') closePresentation();
+    if (e.key === 'ArrowRight' || e.key === ' ') presNav(1);
+    if (e.key === 'ArrowLeft') presNav(-1);
+}
+
+function closePresentation() {
+    document.getElementById('pres-overlay').classList.remove('active');
+    document.removeEventListener('keydown', presKeyHandler);
+}
+
+// ══════════════════════════════════
+// [WOW-2] DOSYA GÜÇ SKORU
+// ══════════════════════════════════
+function calculateCaseScore(dosya) {
+    var score = 0;
+    // İhlal sayısı (maks 10, her biri 6 puan = 60)
+    score += Math.min(dosya.violations.length, 10) * 6;
+    // Kusur oranı bonusu (maks 30 puan)
+    score += Math.round(dosya.kusur * 0.3);
+    // 5+ ihlal bonusu
+    if (dosya.violations.length >= 5) score += 10;
+    return Math.min(score, 100);
+}
+
+function getScoreBadgeHtml(dosya) {
+    var score = calculateCaseScore(dosya);
+    var cls = score >= 70 ? 'strong' : (score >= 40 ? 'medium' : 'weak');
+    var label = score >= 70 ? 'G\u00fc\u00e7l\u00fc' : (score >= 40 ? 'Orta' : 'Zay\u0131f');
+    var color = score >= 70 ? '#10B981' : (score >= 40 ? '#F59E0B' : '#EF4444');
+    return '<span class="score-badge ' + cls + '">' + score + '/100 ' + label +
+        '<span class="score-bar"><span class="score-bar-fill" style="width:' + score + '%; background:' + color + ';"></span></span></span>';
+}
+
+// ══════════════════════════════════
+// [WOW-3] PORTFÖY GELİR HARİTASI
+// ══════════════════════════════════
+function updatePortfolioDashboard() {
+    var lawyerPct = parseFloat(document.getElementById('calc-lawyer-pct').value) || 20;
+    var partnerPct = parseFloat(document.getElementById('calc-partner-pct').value) || 5;
+    var totalValue = 0;
+
+    dosyalar.forEach(function(d) {
+        // Basit tahmin: kusur * 50000 TL baz tazminat
+        totalValue += d.kusur * 50000;
+    });
+
+    document.getElementById('port-total').textContent = formatTL(Math.round(totalValue));
+    document.getElementById('port-lawyer').textContent = formatTL(Math.round(totalValue * lawyerPct / 100));
+    document.getElementById('port-partner').textContent = formatTL(Math.round(totalValue * partnerPct / 100));
+}
+
+// ══════════════════════════════════
+// [WOW-4] KARŞI VEKALET RİSK ANALİZİ
+// ══════════════════════════════════
+function calculateKarsiVekalet(davaDegeri) {
+    // 2024 AAÜT tarifesi (basitleştirilmiş)
+    if (davaDegeri <= 0) return 0;
+    if (davaDegeri <= 100000) return davaDegeri * 0.15;
+    if (davaDegeri <= 500000) return 15000 + (davaDegeri - 100000) * 0.12;
+    if (davaDegeri <= 1000000) return 63000 + (davaDegeri - 500000) * 0.09;
+    return 108000 + (davaDegeri - 1000000) * 0.05;
+}
+
+// ══════════════════════════════════
+// [WOW-5] SESLİ RAPOR OKUMA
+// ══════════════════════════════════
+var isSpeaking = false;
+
+function toggleVoice() {
+    var btn = document.getElementById('btn-voice');
+
+    if (isSpeaking) {
+        speechSynthesis.cancel();
+        isSpeaking = false;
+        btn.classList.remove('speaking');
+        btn.textContent = 'Sesli Oku';
+        return;
+    }
+
+    // Aktif sekmenin içeriğini oku
+    var activeTab = document.querySelector('.tab-content.active');
+    if (!activeTab) return;
+
+    var text = activeTab.innerText;
+    if (text.length > 2000) text = text.substring(0, 2000) + '... Devamı kısaltılmıştır.';
+
+    var utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'tr-TR';
+    utterance.rate = 0.9;
+    utterance.pitch = 1;
+
+    utterance.onend = function() {
+        isSpeaking = false;
+        btn.classList.remove('speaking');
+        btn.textContent = 'Sesli Oku';
+    };
+
+    speechSynthesis.speak(utterance);
+    isSpeaking = true;
+    btn.classList.add('speaking');
+    btn.textContent = 'Durdur';
+}
+
+// ══════════════════════════════════
 // INIT — Restore from localStorage
 // ══════════════════════════════════
 function initApp() {
     if (dosyalar.length > 0) {
-        dosyalar.forEach(d => addToMatrix(d));
-        const lastKusur = dosyalar[dosyalar.length - 1].kusur;
+        dosyalar.forEach(function(d) { addToMatrix(d); });
+        var lastKusur = dosyalar[dosyalar.length - 1].kusur;
         updateDonut(lastKusur);
     }
     updateGlobalStats();
     renderDosyalar();
     calculateFinance();
+    calculateTazminat();
+    filterEmsalKararlar();
+    analyzePolice();
+    updateDilekceDropdown();
+    updatePortfolioDashboard();
 }
 
 initApp();
