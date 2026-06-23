@@ -1,0 +1,1678 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="İSG PARTNER — 6331 Sayılı Kanun kapsamında İşveren Mali Mesuliyet Sigortası (İMMS) tahsilat yönetim paneli. Avukat ve İSG uzmanları için şeffaf çözüm ortaklığı.">
+    <title>İSG PARTNER — Şeffaf Çözüm Ortaklığı</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════════════════
+           DESIGN SYSTEM — CSS CUSTOM PROPERTIES
+           ═══════════════════════════════════════════════ */
+        :root {
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #070a12;
+            --bg-secondary: #0d1117;
+            --panel-bg: #111827;
+            --panel-bg-hover: #1a2234;
+            --accent-color: #f59e0b;
+            --accent-hover: #d97706;
+            --accent-glow: rgba(245, 158, 11, 0.15);
+            --legal-color: #00d4ff;
+            --legal-glow: rgba(0, 212, 255, 0.1);
+            --text-color: #f3f4f6;
+            --text-secondary: #d1d5db;
+            --text-muted: #8b95a5;
+            --danger: #ef4444;
+            --danger-glow: rgba(239, 68, 68, 0.12);
+            --success: #10b981;
+            --success-glow: rgba(16, 185, 129, 0.12);
+            --warning: #f59e0b;
+            --border-color: #1e2a3a;
+            --border-light: #2a3648;
+            --input-bg: #1a2332;
+            --input-border: #2d3d52;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+            --shadow-md: 0 8px 24px rgba(0,0,0,0.4);
+            --shadow-lg: 0 16px 48px rgba(0,0,0,0.5);
+            --glass-bg: rgba(17, 24, 39, 0.8);
+            --glass-border: rgba(255,255,255,0.06);
+            --scrollbar-track: #0d1117;
+            --scrollbar-thumb: #2a3648;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f0f2f5;
+            --bg-secondary: #e8ecf1;
+            --panel-bg: #ffffff;
+            --panel-bg-hover: #f8f9fa;
+            --accent-color: #d97706;
+            --accent-hover: #b45309;
+            --accent-glow: rgba(217, 119, 6, 0.08);
+            --legal-color: #0891b2;
+            --legal-glow: rgba(8, 145, 178, 0.06);
+            --text-color: #111827;
+            --text-secondary: #374151;
+            --text-muted: #6b7280;
+            --danger: #dc2626;
+            --danger-glow: rgba(220, 38, 38, 0.06);
+            --success: #059669;
+            --success-glow: rgba(5, 150, 105, 0.06);
+            --warning: #d97706;
+            --border-color: #e5e7eb;
+            --border-light: #d1d5db;
+            --input-bg: #f3f4f6;
+            --input-border: #d1d5db;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+            --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+            --shadow-lg: 0 16px 48px rgba(0,0,0,0.1);
+            --glass-bg: rgba(255,255,255,0.85);
+            --glass-border: rgba(0,0,0,0.06);
+            --scrollbar-track: #e8ecf1;
+            --scrollbar-thumb: #c1c7d0;
+        }
+
+        /* ═══════════════════════════════════════════════
+           RESET & BASE
+           ═══════════════════════════════════════════════ */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+        ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-color); }
+
+        /* Focus Styles — Accessibility */
+        *:focus-visible {
+            outline: 2px solid var(--accent-color);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        /* ═══════════════════════════════════════════════
+           LOGIN SCREEN
+           ═══════════════════════════════════════════════ */
+        .login-screen {
+            position: fixed; inset: 0; z-index: 9999;
+            background: var(--bg-color);
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        .login-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+        .login-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 50px 40px;
+            width: 400px;
+            max-width: 90vw;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            animation: loginSlide 0.6s ease;
+        }
+        @keyframes loginSlide {
+            from { opacity: 0; transform: translateY(30px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .login-logo {
+            font-size: 32px; font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-color), #fbbf24);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; margin-bottom: 6px;
+        }
+        .login-subtitle { color: var(--text-muted); font-size: 13px; margin-bottom: 35px; }
+        .login-label { color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; display: block; font-weight: 600; }
+
+        .pin-input-group { display: flex; gap: 10px; justify-content: center; margin-bottom: 25px; }
+        .pin-digit {
+            width: 52px; height: 60px;
+            background: var(--input-bg); border: 2px solid var(--input-border);
+            border-radius: 12px; color: var(--accent-color);
+            font-size: 24px; font-weight: 700; text-align: center;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .pin-digit:focus { border-color: var(--accent-color); box-shadow: 0 0 0 4px var(--accent-glow); outline: none; }
+        .pin-digit.error { border-color: var(--danger); animation: pinShake 0.4s ease; }
+
+        @keyframes pinShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            50% { transform: translateX(8px); }
+            75% { transform: translateX(-4px); }
+        }
+
+        .login-btn {
+            width: 100%; padding: 14px;
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+            border: none; border-radius: 12px;
+            color: #000; font-weight: 700; font-size: 14px;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+            transition: transform 0.2s, box-shadow 0.3s;
+        }
+        .login-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px var(--accent-glow); }
+        .login-hint { color: var(--text-muted); font-size: 11px; margin-top: 18px; opacity: 0.6; }
+
+        /* ═══════════════════════════════════════════════
+           SIDEBAR
+           ═══════════════════════════════════════════════ */
+        .sidebar {
+            width: 300px; min-width: 300px;
+            background-color: var(--panel-bg);
+            border-right: 1px solid var(--border-color);
+            padding: 28px 20px;
+            display: flex; flex-direction: column; justify-content: space-between;
+            transition: transform 0.35s ease, background-color 0.4s ease;
+            z-index: 100;
+        }
+
+        .logo-container { text-align: center; margin-bottom: 32px; }
+        .logo {
+            font-size: 26px; font-weight: 900; letter-spacing: 1.5px;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            background: linear-gradient(135deg, var(--accent-color), #fbbf24);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .logo-icon {
+            width: 36px; height: 36px;
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            font-size: 18px; -webkit-text-fill-color: #000;
+        }
+        .premium-badge {
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+            color: #000; padding: 4px 14px; border-radius: 20px;
+            font-size: 9px; font-weight: 700; margin-top: 8px;
+            display: inline-block; letter-spacing: 1.2px; text-transform: uppercase;
+        }
+
+        .menu-group { display: flex; flex-direction: column; gap: 6px; }
+        .menu-btn {
+            background: none; border: none;
+            color: var(--text-muted); padding: 13px 16px;
+            text-align: left; width: 100%;
+            font-size: 13px; font-weight: 500; font-family: var(--font-main);
+            cursor: pointer; border-radius: 10px;
+            transition: all 0.25s ease;
+            display: flex; align-items: center; gap: 12px;
+            position: relative; overflow: hidden;
+        }
+        .menu-btn::before {
+            content: ''; position: absolute; left: 0; top: 0;
+            width: 3px; height: 100%; background: var(--accent-color);
+            transform: scaleY(0); transition: transform 0.25s ease;
+            border-radius: 0 2px 2px 0;
+        }
+        .menu-btn.active::before, .menu-btn:hover::before { transform: scaleY(1); }
+        .menu-btn.active, .menu-btn:hover {
+            background-color: var(--accent-glow);
+            color: var(--accent-color); font-weight: 600;
+        }
+        .menu-btn .menu-icon { font-size: 16px; min-width: 22px; text-align: center; }
+
+        /* Sidebar Footer */
+        .sidebar-footer {
+            margin-top: auto; padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        .theme-toggle {
+            width: 100%; padding: 10px 14px;
+            background: var(--input-bg); border: 1px solid var(--border-color);
+            border-radius: 8px; color: var(--text-muted);
+            font-size: 12px; font-family: var(--font-main);
+            cursor: pointer; display: flex; align-items: center; gap: 8px;
+            transition: all 0.25s ease; margin-bottom: 14px;
+        }
+        .theme-toggle:hover { border-color: var(--accent-color); color: var(--accent-color); }
+
+        .designer-credit {
+            font-size: 10px; color: var(--text-muted);
+            text-align: center; line-height: 1.7; opacity: 0.7;
+        }
+        .designer-credit strong { color: var(--text-secondary); }
+
+        /* Mobile hamburger */
+        .mobile-toggle {
+            display: none; position: fixed; top: 16px; left: 16px; z-index: 200;
+            width: 44px; height: 44px;
+            background: var(--panel-bg); border: 1px solid var(--border-color);
+            border-radius: 10px; cursor: pointer;
+            align-items: center; justify-content: center;
+            font-size: 20px; color: var(--text-color);
+        }
+        .sidebar-overlay {
+            display: none; position: fixed; inset: 0; z-index: 90;
+            background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+        }
+
+        /* ═══════════════════════════════════════════════
+           MAIN CONTENT
+           ═══════════════════════════════════════════════ */
+        .main-content {
+            flex: 1; padding: 28px 32px; overflow-y: auto;
+            display: flex; flex-direction: column; gap: 22px;
+            background: var(--bg-color);
+            transition: background-color 0.4s ease;
+        }
+
+        .header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding-bottom: 18px; border-bottom: 1px solid var(--border-color);
+        }
+        .header h1 { font-size: 20px; font-weight: 700; color: var(--text-color); }
+        .header-sub { color: var(--text-muted); font-size: 12px; margin-top: 4px; font-weight: 400; }
+        .live-clock {
+            color: var(--legal-color); font-weight: 600; font-size: 12px;
+            background: var(--legal-glow); padding: 8px 16px;
+            border-radius: 8px; border: 1px solid rgba(0,212,255,0.15);
+            white-space: nowrap;
+        }
+
+        /* ═══════════════════════════════════════════════
+           STAT CARDS
+           ═══════════════════════════════════════════════ */
+        .stats-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+
+        .stat-card {
+            background: var(--panel-bg); padding: 18px 16px;
+            border-radius: 14px; border: 1px solid var(--border-color);
+            position: relative; overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.4s ease;
+        }
+        .stat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+        .stat-card::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 4px; height: 100%; background: var(--accent-color);
+            border-radius: 0 2px 2px 0;
+        }
+        .stat-card.legal::before { background: var(--legal-color); }
+        .stat-card.success::before { background: var(--success); }
+        .stat-card.danger::before { background: var(--danger); }
+        .stat-card h3 {
+            font-size: 10px; color: var(--text-muted);
+            margin-bottom: 8px; text-transform: uppercase;
+            letter-spacing: 0.8px; font-weight: 600;
+        }
+        .stat-card p { font-size: 22px; font-weight: 800; }
+        .stat-card .stat-icon {
+            position: absolute; top: 14px; right: 14px;
+            font-size: 20px; opacity: 0.3;
+        }
+
+        /* Count-up animation */
+        .count-up { display: inline-block; }
+
+        /* ═══════════════════════════════════════════════
+           TAB SYSTEM
+           ═══════════════════════════════════════════════ */
+        .tab-content {
+            display: none; opacity: 0; transform: translateY(12px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .tab-content.active {
+            display: block;
+            animation: tabFadeIn 0.45s ease forwards;
+        }
+        @keyframes tabFadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ═══════════════════════════════════════════════
+           PANELS
+           ═══════════════════════════════════════════════ */
+        .grid-layout { display: grid; grid-template-columns: 1fr 1.3fr; gap: 20px; }
+
+        .panel {
+            background: var(--panel-bg); padding: 22px;
+            border-radius: 16px; border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            transition: background-color 0.4s ease;
+        }
+        .panel h2 {
+            font-size: 15px; font-weight: 700; margin-bottom: 18px;
+            color: var(--accent-color);
+            display: flex; align-items: center; gap: 10px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        /* ═══════════════════════════════════════════════
+           FORMS
+           ═══════════════════════════════════════════════ */
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .form-group { margin-bottom: 14px; }
+        .form-group label {
+            display: block; margin-bottom: 6px;
+            font-size: 10px; color: var(--text-muted);
+            font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px;
+        }
+        .form-control {
+            width: 100%; padding: 11px 14px;
+            background: var(--input-bg); border: 1px solid var(--input-border);
+            color: var(--text-color); border-radius: 8px;
+            font-size: 13px; font-family: var(--font-main);
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+        .form-control:focus { border-color: var(--accent-color); box-shadow: 0 0 0 3px var(--accent-glow); outline: none; }
+        .form-control.error { border-color: var(--danger); box-shadow: 0 0 0 3px var(--danger-glow); }
+
+        /* ISG Checkboxes */
+        .isg-checkboxes {
+            background: var(--accent-glow); border: 1px dashed var(--accent-color);
+            padding: 18px; border-radius: 10px; margin-bottom: 16px;
+        }
+        .isg-checkboxes-title {
+            color: var(--accent-color); font-size: 11px; margin-bottom: 14px;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px;
+        }
+
+        .check-item {
+            display: flex; align-items: flex-start; gap: 12px;
+            margin-bottom: 12px; font-size: 12px;
+            color: var(--text-secondary); line-height: 1.5;
+            padding: 10px 12px; border-radius: 8px;
+            transition: background-color 0.2s ease;
+            cursor: pointer;
+        }
+        .check-item:hover { background: rgba(255,255,255,0.03); }
+        .check-item:last-child { margin-bottom: 0; }
+        .check-item input[type="checkbox"] {
+            margin-top: 3px; accent-color: var(--accent-color);
+            width: 16px; height: 16px; cursor: pointer; flex-shrink: 0;
+        }
+        .law-tag {
+            font-size: 9px; background: var(--input-bg); padding: 3px 8px;
+            border-radius: 4px; color: var(--accent-color);
+            font-weight: 700; display: inline-block; margin-bottom: 4px;
+            border: 1px solid var(--border-color); letter-spacing: 0.5px;
+        }
+        .check-weight {
+            font-size: 10px; color: var(--text-muted); font-weight: 600;
+            margin-left: auto; white-space: nowrap;
+            background: var(--input-bg); padding: 2px 8px; border-radius: 4px;
+        }
+
+        /* Kusur Meter */
+        .kusur-meter {
+            margin-top: 16px; margin-bottom: 16px;
+            background: var(--input-bg); border-radius: 10px; padding: 16px;
+            border: 1px solid var(--border-color);
+        }
+        .kusur-meter-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 10px;
+        }
+        .kusur-meter-label { font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; }
+        .kusur-meter-value { font-size: 28px; font-weight: 900; color: var(--accent-color); }
+        .kusur-bar-track {
+            width: 100%; height: 8px;
+            background: var(--border-color); border-radius: 4px; overflow: hidden;
+        }
+        .kusur-bar-fill {
+            height: 100%; border-radius: 4px;
+            background: linear-gradient(90deg, var(--success), var(--accent-color), var(--danger));
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 0%;
+        }
+
+        /* Buttons */
+        .btn-premium {
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+            color: #000; border: none; padding: 13px 20px;
+            border-radius: 10px; cursor: pointer; font-weight: 700;
+            width: 100%; font-size: 13px; text-transform: uppercase;
+            letter-spacing: 0.8px; font-family: var(--font-main);
+            transition: transform 0.2s, box-shadow 0.3s; margin-bottom: 8px;
+        }
+        .btn-premium:hover { transform: translateY(-2px); box-shadow: 0 6px 20px var(--accent-glow); }
+
+        .btn-simulate {
+            background: linear-gradient(135deg, var(--success), #059669);
+            color: #fff; border: none; padding: 13px 20px;
+            border-radius: 10px; cursor: pointer; font-weight: 700;
+            width: 100%; font-size: 13px; text-transform: uppercase;
+            letter-spacing: 0.8px; font-family: var(--font-main);
+            transition: transform 0.2s, box-shadow 0.3s;
+            position: relative; overflow: hidden;
+        }
+        .btn-simulate:hover { transform: translateY(-2px); box-shadow: 0 6px 20px var(--success-glow); }
+        .btn-simulate.loading { pointer-events: none; opacity: 0.8; }
+        .btn-simulate.loading::after {
+            content: ''; position: absolute; top: 0; left: -100%;
+            width: 200%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer { to { left: 100%; } }
+
+        .btn-outline {
+            background: none; border: 1px solid var(--border-color);
+            color: var(--text-muted); padding: 10px 16px;
+            border-radius: 8px; cursor: pointer;
+            font-size: 12px; font-weight: 600; font-family: var(--font-main);
+            transition: all 0.25s ease;
+        }
+        .btn-outline:hover { border-color: var(--accent-color); color: var(--accent-color); }
+
+        .btn-danger {
+            background: none; border: 1px solid var(--danger);
+            color: var(--danger); padding: 6px 10px; border-radius: 6px;
+            cursor: pointer; font-size: 10px; font-weight: 600; font-family: var(--font-main);
+            transition: all 0.25s ease;
+        }
+        .btn-danger:hover { background: var(--danger); color: #fff; }
+
+        /* ═══════════════════════════════════════════════
+           TABLE
+           ═══════════════════════════════════════════════ */
+        table { width: 100%; border-collapse: collapse; }
+        th, td {
+            padding: 12px 14px; text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 12px; vertical-align: middle;
+        }
+        th {
+            color: var(--text-muted); font-weight: 600;
+            text-transform: uppercase; font-size: 10px;
+            background: var(--bg-secondary); letter-spacing: 0.5px;
+        }
+        tr { transition: background-color 0.2s ease; }
+        tr:hover { background: var(--panel-bg-hover); }
+
+        .empty-state {
+            text-align: center; padding: 50px 20px;
+            color: var(--text-muted);
+        }
+        .empty-state-icon { font-size: 48px; opacity: 0.3; margin-bottom: 12px; }
+        .empty-state h4 { font-size: 14px; margin-bottom: 6px; color: var(--text-secondary); }
+        .empty-state p { font-size: 12px; line-height: 1.6; }
+
+        /* ═══════════════════════════════════════════════
+           BADGES
+           ═══════════════════════════════════════════════ */
+        .badge {
+            padding: 4px 8px; border-radius: 5px;
+            font-size: 9px; font-weight: 700;
+            text-transform: uppercase; display: inline-block;
+            margin-bottom: 3px; letter-spacing: 0.3px;
+        }
+        .badge.danger { background: var(--danger-glow); color: var(--danger); border: 1px solid rgba(239,68,68,0.25); }
+        .badge.warning { background: var(--accent-glow); color: var(--accent-color); border: 1px solid rgba(245,158,11,0.25); }
+        .badge.success { background: var(--success-glow); color: var(--success); border: 1px solid rgba(16,185,129,0.25); }
+        .badge.legal { background: var(--legal-glow); color: var(--legal-color); border: 1px solid rgba(0,212,255,0.2); }
+        .badge.info { background: rgba(99,102,241,0.1); color: #818cf8; border: 1px solid rgba(99,102,241,0.2); }
+
+        /* Status pipeline */
+        .status-select {
+            background: var(--input-bg); border: 1px solid var(--input-border);
+            color: var(--text-color); padding: 5px 8px;
+            border-radius: 6px; font-size: 10px; font-family: var(--font-main);
+            cursor: pointer; font-weight: 600;
+        }
+
+        /* ═══════════════════════════════════════════════
+           STEP CARDS (Kolaydan Zora)
+           ═══════════════════════════════════════════════ */
+        .step-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 12px; }
+
+        .step-card {
+            background: var(--panel-bg-hover); padding: 24px 20px;
+            border-radius: 12px; position: relative;
+            border-top: 4px solid var(--text-muted);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .step-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+        .step-card.easy { border-top-color: var(--success); background: linear-gradient(180deg, var(--success-glow), transparent); }
+        .step-card.medium { border-top-color: var(--accent-color); background: linear-gradient(180deg, var(--accent-glow), transparent); }
+        .step-card.hard { border-top-color: var(--danger); background: linear-gradient(180deg, var(--danger-glow), transparent); }
+        .step-card .step-number {
+            font-size: 48px; font-weight: 900; position: absolute; top: 10px; right: 16px; opacity: 0.06;
+        }
+        .step-card h3 { font-size: 14px; margin-bottom: 10px; color: var(--text-color); font-weight: 700; }
+        .step-card p { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+
+        /* ═══════════════════════════════════════════════
+           INFO BOX (Partnerlik)
+           ═══════════════════════════════════════════════ */
+        .info-box {
+            background: var(--legal-glow); border-left: 4px solid var(--legal-color);
+            padding: 24px; border-radius: 0 12px 12px 0; margin-bottom: 22px;
+        }
+        .info-box h3 { color: var(--legal-color); margin-bottom: 12px; font-size: 16px; font-weight: 700; }
+        .info-box > p { font-size: 13px; color: var(--text-muted); margin-bottom: 18px; line-height: 1.6; }
+        .info-box ul { list-style: none; padding-left: 0; }
+        .info-box ul li {
+            font-size: 13px; color: var(--text-secondary); margin-bottom: 14px;
+            padding-left: 28px; position: relative; line-height: 1.6;
+        }
+        .info-box ul li::before {
+            content: '✓'; position: absolute; left: 0; top: 0;
+            font-size: 14px; font-weight: 800; color: var(--success);
+        }
+
+        /* ═══════════════════════════════════════════════
+           FINANCE BOX
+           ═══════════════════════════════════════════════ */
+        .finance-calculator { margin-bottom: 18px; }
+        .finance-inputs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 4px; }
+
+        .finance-box {
+            background: linear-gradient(135deg, var(--panel-bg-hover), var(--panel-bg));
+            border: 1px solid var(--border-color); padding: 20px;
+            border-radius: 14px; margin-top: 16px;
+        }
+        .finance-row {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px dashed var(--border-color); padding: 14px 0;
+        }
+        .finance-row:last-child { border-bottom: none; }
+        .finance-label { color: var(--text-muted); font-size: 12px; display: block; }
+        .finance-sublabel { color: var(--text-secondary); font-size: 11px; }
+        .val-total { font-size: 22px; color: var(--success); font-weight: 800; }
+        .val-lawyer { font-size: 20px; color: var(--legal-color); font-weight: 800; }
+        .val-partner {
+            font-size: 24px; color: var(--accent-color); font-weight: 900;
+            text-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .partner-highlight {
+            background: var(--accent-glow); padding: 18px;
+            border-radius: 12px; margin-top: 12px;
+            border: 1px solid rgba(245,158,11,0.2);
+        }
+
+        /* ═══════════════════════════════════════════════
+           DONUT CHART (CSS Only)
+           ═══════════════════════════════════════════════ */
+        .donut-container { display: flex; align-items: center; gap: 24px; margin: 20px 0; }
+        .donut {
+            width: 120px; height: 120px; border-radius: 50%;
+            position: relative; flex-shrink: 0;
+            background: conic-gradient(
+                var(--danger) 0deg, var(--danger) calc(var(--driver-pct) * 3.6deg),
+                var(--accent-color) calc(var(--driver-pct) * 3.6deg), var(--accent-color) 360deg
+            );
+            transition: background 0.6s ease;
+        }
+        .donut::after {
+            content: ''; position: absolute;
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 70px; height: 70px; border-radius: 50%;
+            background: var(--panel-bg);
+        }
+        .donut-center {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); z-index: 1;
+            font-size: 10px; font-weight: 700; color: var(--text-muted);
+            text-align: center;
+        }
+        .donut-center strong { display: block; font-size: 18px; color: var(--accent-color); }
+        .donut-legend { display: flex; flex-direction: column; gap: 10px; }
+        .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-secondary); }
+        .legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
+        /* ═══════════════════════════════════════════════
+           SIMULATION RESULT
+           ═══════════════════════════════════════════════ */
+        #sim-result {
+            display: none; margin-top: 20px;
+            background: var(--success-glow); border: 1px solid rgba(16,185,129,0.3);
+            padding: 18px; border-radius: 12px;
+            animation: resultSlide 0.5s ease;
+        }
+        @keyframes resultSlide {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        #sim-result h4 { color: var(--success); margin-bottom: 10px; font-size: 14px; }
+
+        /* ═══════════════════════════════════════════════
+           TOAST NOTIFICATION SYSTEM
+           ═══════════════════════════════════════════════ */
+        .toast-container {
+            position: fixed; bottom: 24px; right: 24px;
+            z-index: 10000; display: flex; flex-direction: column-reverse; gap: 10px;
+        }
+        .toast {
+            min-width: 320px; max-width: 420px;
+            padding: 14px 20px; border-radius: 12px;
+            color: #fff; font-size: 13px; font-weight: 500;
+            display: flex; align-items: center; gap: 10px;
+            box-shadow: var(--shadow-lg);
+            animation: toastIn 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+        .toast.removing { animation: toastOut 0.3s ease forwards; }
+        .toast.success { background: linear-gradient(135deg, rgba(16,185,129,0.92), rgba(5,150,105,0.92)); }
+        .toast.error { background: linear-gradient(135deg, rgba(239,68,68,0.92), rgba(220,38,38,0.92)); }
+        .toast.info { background: linear-gradient(135deg, rgba(0,212,255,0.92), rgba(8,145,178,0.92)); }
+        .toast.warning { background: linear-gradient(135deg, rgba(245,158,11,0.92), rgba(217,119,6,0.92)); color: #000; }
+        .toast-icon { font-size: 18px; flex-shrink: 0; }
+        .toast-close { margin-left: auto; cursor: pointer; opacity: 0.7; font-size: 16px; background: none; border: none; color: inherit; }
+        .toast-close:hover { opacity: 1; }
+
+        @keyframes toastIn { from { opacity: 0; transform: translateX(60px) scale(0.9); } to { opacity: 1; transform: translateX(0) scale(1); } }
+        @keyframes toastOut { to { opacity: 0; transform: translateX(60px) scale(0.9); } }
+
+        /* ═══════════════════════════════════════════════
+           RESPONSIVE DESIGN
+           ═══════════════════════════════════════════════ */
+        @media (max-width: 1200px) {
+            .stats-container { grid-template-columns: repeat(2, 1fr); }
+            .grid-layout { grid-template-columns: 1fr; }
+            .step-grid { grid-template-columns: 1fr 1fr; }
+            .finance-inputs { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar { position: fixed; left: 0; top: 0; bottom: 0; transform: translateX(-100%); }
+            .sidebar.open { transform: translateX(0); }
+            .sidebar-overlay.open { display: block; }
+            .mobile-toggle { display: flex; }
+            .main-content { padding: 20px 16px; padding-top: 70px; }
+            .stats-container { grid-template-columns: 1fr; }
+            .step-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .finance-inputs { grid-template-columns: 1fr; }
+            .header { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .donut-container { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     LOGIN SCREEN
+     ═══════════════════════════════════════════════ -->
+<div class="login-screen" id="login-screen">
+    <div class="login-card">
+        <div class="login-logo">İSG PARTNER</div>
+        <p class="login-subtitle">Şeffaf Çözüm Ortaklığı Paneli</p>
+        <label class="login-label">Giriş PIN Kodunuz</label>
+        <div class="pin-input-group" id="pin-group">
+            <input type="password" maxlength="1" class="pin-digit" id="pin-1" inputmode="numeric" autofocus>
+            <input type="password" maxlength="1" class="pin-digit" id="pin-2" inputmode="numeric">
+            <input type="password" maxlength="1" class="pin-digit" id="pin-3" inputmode="numeric">
+            <input type="password" maxlength="1" class="pin-digit" id="pin-4" inputmode="numeric">
+        </div>
+        <button class="login-btn" onclick="checkPin()">Giriş Yap</button>
+        <p class="login-hint">Varsayılan PIN: 1 – 4 – 7 – 0</p>
+    </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toast-container"></div>
+
+<!-- MOBILE -->
+<button class="mobile-toggle" id="mobile-toggle" onclick="toggleSidebar()">☰</button>
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+<!-- ═══════════════════════════════════════════════
+     SIDEBAR
+     ═══════════════════════════════════════════════ -->
+<div class="sidebar" id="sidebar">
+    <div>
+        <div class="logo-container">
+            <div class="logo">
+                <span class="logo-icon">⛑️</span>
+                İSG PARTNER
+            </div>
+            <span class="premium-badge">Şeffaf Çözüm Ortaklığı</span>
+        </div>
+        <div class="menu-group">
+            <button class="menu-btn active" onclick="openTab(event, 'tab-partnerlik')" aria-label="Partnerlik Modeli">
+                <span class="menu-icon">🤝</span> Partnerlik Modeli & Şeffaflık
+            </button>
+            <button class="menu-btn" onclick="openTab(event, 'tab-6331')" aria-label="Kusur Simülatörü">
+                <span class="menu-icon">⚖️</span> 6331 İSG Kusur Simülatörü
+            </button>
+            <button class="menu-btn" onclick="openTab(event, 'tab-kolaydan-zora')" aria-label="İMMS Haritası">
+                <span class="menu-icon">🗺️</span> Kolaydan Zora İMMS Haritası
+            </button>
+            <button class="menu-btn" onclick="openTab(event, 'tab-dosyalar')" aria-label="Dosya Yönetimi">
+                <span class="menu-icon">📁</span> Dosya Yönetimi
+            </button>
+        </div>
+    </div>
+    <div class="sidebar-footer">
+        <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">
+            <span id="theme-icon">☀️</span> <span id="theme-label">Açık Tema</span>
+        </button>
+        <div class="designer-credit">
+            Tasarlayan: <strong>mcınar</strong><br>
+            © 2026 Her Hakkı Saklıdır.
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     MAIN CONTENT
+     ═══════════════════════════════════════════════ -->
+<div class="main-content">
+    <!-- HEADER -->
+    <div class="header">
+        <div>
+            <h1>İSG & İşveren Sorumluluğu Ortaklık Paneli</h1>
+            <div class="header-sub">Hedef: Minimum Risk, Maksimum İMMS Tahsilatı</div>
+        </div>
+        <div class="live-clock" id="live-clock"></div>
+    </div>
+
+    <!-- GLOBAL STATS -->
+    <div class="stats-container">
+        <div class="stat-card legal">
+            <span class="stat-icon">📋</span>
+            <h3>Polis Tutanağı (Görünen)</h3>
+            <p>Şoför %100</p>
+        </div>
+        <div class="stat-card">
+            <span class="stat-icon">🔍</span>
+            <h3>6331 İSG Raporu (Gerçek)</h3>
+            <p id="stat-isg">İşveren %0</p>
+        </div>
+        <div class="stat-card success">
+            <span class="stat-icon">🛡️</span>
+            <h3>Karşı Vekalet Riski</h3>
+            <p id="stat-risk">0 TL</p>
+        </div>
+        <div class="stat-card">
+            <span class="stat-icon">💰</span>
+            <h3>Toplam Dosya Sayısı</h3>
+            <p id="stat-dosya">0 Dosya</p>
+        </div>
+    </div>
+
+    <!-- ═══════════ SEKME 1: PARTNERLİK MODELİ ═══════════ -->
+    <div id="tab-partnerlik" class="tab-content active">
+        <div class="info-box">
+            <h3>🤝 Avukat – İSG Uzmanı Şeffaf Çalışma Modeli</h3>
+            <p>Sayın Avukat, sistemimizin temel felsefesi <b>şeffaflık</b> ve <b>Sıfır Risk</b> üzerine kuruludur. Amacımız sizi mahkemelerde yormak değil, İşveren Mali Mesuliyet Sigortası'nın (İMMS) kapılarını en kolay yoldan açmaktır.</p>
+            <ul>
+                <li><b>Sizden Masraf / Peşinat İstemiyoruz:</b> Dosyayı inceler ve 6331 sayılı İSG Kanununa göre HMK m.293 uzman görüşünü (mütalaa) hazırlarız. Başlangıçta cebinizden tek kuruş çıkmaz.</li>
+                <li><b>Biz Sadece Kazanırsak Kazanırız:</b> Tahsilat yapıldığında, elde ettiğiniz yasal vekalet ücretinin (veya anlaşılan tutarın) <b>%20'si</b> "Teknik Danışmanlık Başarı Primi" olarak şeffafça faturalandırılır.</li>
+                <li><b>Sıfır Karşı Vekalet Riski:</b> Doğrudan milyonluk davalar açtırmayız. Raporumuzla önce "Arabuluculuk" masasında sigortayı uzlaşmaya zorlarız. Risk almadan tahsilat yaparız.</li>
+            </ul>
+            <button class="btn-simulate" style="width: auto; padding: 12px 24px; margin-top: 14px;" onclick="openTabClick('tab-6331')">📊 Simülasyonu İncele →</button>
+        </div>
+
+        <div class="panel">
+            <h2>💰 Dinamik Kazanç Hesaplayıcı</h2>
+            <div class="finance-calculator">
+                <div class="finance-inputs">
+                    <div class="form-group">
+                        <label>Toplam İMMS Tazminatı (TL)</label>
+                        <input type="text" class="form-control" id="calc-total" value="3.500.000" oninput="calculateFinance()">
+                    </div>
+                    <div class="form-group">
+                        <label>Avukat Vekalet Oranı (%)</label>
+                        <input type="number" class="form-control" id="calc-lawyer-pct" value="20" min="1" max="50" oninput="calculateFinance()">
+                    </div>
+                    <div class="form-group">
+                        <label>İSG Partner Primi (%)</label>
+                        <input type="number" class="form-control" id="calc-partner-pct" value="20" min="1" max="50" oninput="calculateFinance()">
+                    </div>
+                </div>
+            </div>
+            <div class="finance-box" id="finance-box">
+                <div class="finance-row">
+                    <div>
+                        <span class="finance-label">Hedeflenen Toplam İMMS Tazminatı (Maddi+Manevi)</span>
+                    </div>
+                    <div class="val-total" id="fin-total">3.500.000 TL</div>
+                </div>
+                <div class="finance-row">
+                    <div>
+                        <span class="finance-label">Avukatın Yasal Payı</span>
+                        <span class="finance-sublabel">Avukatın ofisine giren net ciro.</span>
+                    </div>
+                    <div class="val-lawyer" id="fin-lawyer">700.000 TL</div>
+                </div>
+                <div class="finance-row partner-highlight">
+                    <div>
+                        <span style="color:var(--accent-color); font-size:13px; font-weight:700; display:block;">İSG PARTNER Başarı Primi</span>
+                        <span class="finance-sublabel">Avukatın kazancı üzerinden şeffaf hak ediş.</span>
+                    </div>
+                    <div class="val-partner" id="fin-partner">140.000 TL</div>
+                </div>
+            </div>
+            <div style="text-align:right; margin-top: 12px;">
+                <button class="btn-outline" onclick="exportFinancePDF()">📄 PDF Olarak İndir</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════ SEKME 2: 6331 KUSUR SİMÜLATÖRÜ ═══════════ -->
+    <div id="tab-6331" class="tab-content">
+        <div class="grid-layout">
+            <div class="panel">
+                <h2>⚖️ 6331 Sayılı Kanun — Kusur Analiz Motoru</h2>
+                <form id="isg-form" novalidate>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Müvekkil Adı *</label>
+                            <input type="text" class="form-control" id="muvekkil" placeholder="Örn: Ahmet Can" required>
+                        </div>
+                        <div class="form-group">
+                            <label>İşveren Şirket *</label>
+                            <input type="text" class="form-control" id="isveren" placeholder="Örn: XYZ Kargo A.Ş." required>
+                        </div>
+                    </div>
+                    
+                    <div class="isg-checkboxes">
+                        <div class="isg-checkboxes-title">🔍 Yasal İhlal Taraması (İşverene Kusur Yükler)</div>
+                        
+                        <div class="check-item" onclick="toggleCheck('chk-risk')">
+                            <input type="checkbox" id="chk-risk" value="15" onchange="updateKusur()">
+                            <div style="flex:1">
+                                <span class="law-tag">6331 Madde 4</span>
+                                <div>İşverenin Genel Yükümlülüğü: Olası kazalar için "Risk Değerlendirmesi" yapılmamış ve önlem alınmamış.</div>
+                            </div>
+                            <span class="check-weight">+15%</span>
+                        </div>
+
+                        <div class="check-item" onclick="toggleCheck('chk-isguzman')">
+                            <input type="checkbox" id="chk-isguzman" value="10" onchange="updateKusur()">
+                            <div style="flex:1">
+                                <span class="law-tag">6331 Madde 6</span>
+                                <div>İSG Hizmetleri: İş Güvenliği Uzmanı ve İşyeri Hekimi görevlendirilmemiş.</div>
+                            </div>
+                            <span class="check-weight">+10%</span>
+                        </div>
+
+                        <div class="check-item" onclick="toggleCheck('chk-riskdeg')">
+                            <input type="checkbox" id="chk-riskdeg" value="15" onchange="updateKusur()">
+                            <div style="flex:1">
+                                <span class="law-tag">6331 Madde 10</span>
+                                <div>Risk Değerlendirmesi: Detaylı risk analizi yapılmamış, raporlanmamış veya güncellenmemiş.</div>
+                            </div>
+                            <span class="check-weight">+15%</span>
+                        </div>
+
+                        <div class="check-item" onclick="toggleCheck('chk-bildirim')">
+                            <input type="checkbox" id="chk-bildirim" value="10" onchange="updateKusur()">
+                            <div style="flex:1">
+                                <span class="law-tag">6331 Madde 14</span>
+                                <div>İş Kazası Bildirimi: Kaza SGK'ya yasal süre içinde (3 iş günü) bildirilmemiş.</div>
+                            </div>
+                            <span class="check-weight">+10%</span>
+                        </div>
+
+                        <div class="check-item" onclick="toggleCheck('chk-bilgilendirme')">
+                            <input type="checkbox" id="chk-bilgilendirme" value="5" onchange="updateKusur()">
+                            <div style="flex:1">
+                                <span class="law-tag">6331 Madde 16</span>
+                                <div>Çalışanların Bilgilendirilmesi: İşyeri riskleri ve korunma tedbirleri hakkında bilgilendirme yapılmamış.</div>
+                            </div>
+                            <span class="check-weight">+5%</span>
+                        </div>
+
+                        <div class="check-item" onclick="toggleCheck('chk-egitim')">
+                            <input type="checkbox" id="chk-egitim" value="15" onchange="updateKusur()">
+                            <div style="flex:1">
+                                <span class="law-tag">6331 Madde 17</span>
+                                <div>Çalışanların Eğitimi: Personele mesleki yeterlilik ve tehlike/korunma eğitimi verilmemiş.</div>
+                            </div>
+                            <span class="check-weight">+15%</span>
+                        </div>
+
+                        <div class="check-item" onclick="toggleCheck('chk-kacinma')">
+                            <input type="checkbox" id="chk-kacinma" value="5" onchange="updateKusur()">
+                            <div style="flex:1">
+                                <span class="law-tag">6331 Madde 20</span>
+                                <div>Çalışmaktan Kaçınma Hakkı: Ciddi tehlike altındaki işçinin çalışmayı reddetme hakkı engellenmiş.</div>
+                            </div>
+                            <span class="check-weight">+5%</span>
+                        </div>
+
+                        <div class="check-item" onclick="toggleCheck('chk-kkd')">
+                            <input type="checkbox" id="chk-kkd" value="10" onchange="updateKusur()">
+                            <div style="flex:1">
+                                <span class="law-tag">KKD Yönetmeliği</span>
+                                <div>Kişisel Koruyucu Donanım: Kazayı önleyecek ekipmanlar personele zimmetlenmemiş.</div>
+                            </div>
+                            <span class="check-weight">+10%</span>
+                        </div>
+
+                        <div class="check-item" onclick="toggleCheck('chk-5510')">
+                            <input type="checkbox" id="chk-5510" value="10" onchange="updateKusur()">
+                            <div style="flex:1">
+                                <span class="law-tag">5510 Madde 21</span>
+                                <div>SGK Rücu Hakkı: İş kazası nedeniyle SGK'nın işverene rücu talebi oluşmuş.</div>
+                            </div>
+                            <span class="check-weight">+10%</span>
+                        </div>
+
+                        <div class="check-item" onclick="toggleCheck('chk-bk417')">
+                            <input type="checkbox" id="chk-bk417" value="5" onchange="updateKusur()">
+                            <div style="flex:1">
+                                <span class="law-tag">Borçlar Kanunu 417</span>
+                                <div>İşverenin İş Sağlığı Güvenliği Yükümlülüğü: Genel özen yükümlülüğü ihlali.</div>
+                            </div>
+                            <span class="check-weight">+5%</span>
+                        </div>
+                    </div>
+
+                    <!-- KUSUR METER -->
+                    <div class="kusur-meter">
+                        <div class="kusur-meter-header">
+                            <span class="kusur-meter-label">Hesaplanan İşveren Kusur Oranı</span>
+                            <span class="kusur-meter-value" id="kusur-value">%0</span>
+                        </div>
+                        <div class="kusur-bar-track">
+                            <div class="kusur-bar-fill" id="kusur-bar"></div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn-simulate" id="btn-run-sim" onclick="runSimulation()">🚀 Kusur Analizini Çalıştır & Dosya Ekle</button>
+                    <div style="text-align: center; margin-top: 8px;">
+                        <button type="button" class="btn-outline" onclick="runDemoSimulation()" style="font-size:11px; padding: 8px 16px;">🎯 Demo Simülasyonu Doldur</button>
+                    </div>
+                </form>
+                
+                <div id="sim-result">
+                    <h4>✅ Şeffaf Analiz Tamamlandı!</h4>
+                    <div id="sim-text" style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;"></div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h2>📋 Mütalaa & İşlem Matrisi</h2>
+                
+                <!-- DONUT CHART -->
+                <div class="donut-container" id="donut-section" style="display:none;">
+                    <div class="donut" id="donut-chart" style="--driver-pct: 100">
+                        <div class="donut-center">
+                            <strong id="donut-employer">%0</strong>
+                            İşveren
+                        </div>
+                    </div>
+                    <div class="donut-legend">
+                        <div class="legend-item">
+                            <span class="legend-dot" style="background:var(--accent-color)"></span>
+                            <span>İşveren Kusuru: <strong id="legend-employer">%0</strong></span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot" style="background:var(--danger)"></span>
+                            <span>Şoför (Polis Tutanağı): <strong id="legend-driver">%100</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Dosya & Şirket</th>
+                                <th>6331 İSG Kusur Dağılımı</th>
+                                <th>Durum</th>
+                                <th>İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody id="isg-list">
+                            <!-- Empty State -->
+                        </tbody>
+                    </table>
+                    <div class="empty-state" id="table-empty">
+                        <div class="empty-state-icon">📋</div>
+                        <h4>Henüz dosya eklenmedi</h4>
+                        <p>Sol paneldeki formu doldurup "Kusur Analizini Çalıştır" butonuna basarak<br>ilk dosyanızı ekleyebilirsiniz.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════ SEKME 3: KOLAYDAN ZORA ═══════════ -->
+    <div id="tab-kolaydan-zora" class="tab-content">
+        <div class="panel">
+            <h2>🗺️ Kolaydan Zora Tahsilat Stratejisi</h2>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.6;">Amacımız en kısa sürede, en az yasal harç ile tahsilat yapmaktır. Sistemimiz aşama aşama ilerler. Her adımda riskiniz kontrol altındadır.</p>
+
+            <div class="step-grid">
+                <div class="step-card easy">
+                    <span class="step-number">1</span>
+                    <span class="badge success" style="position:absolute; top:-10px; right:12px; font-size:10px; padding:5px 12px;">EN KOLAY & HIZLI</span>
+                    <h3>1. Adım: Arabuluculuk</h3>
+                    <p>Hazırladığımız 6331 İSG Mütalaamız arabuluculuk masasına konur. Şirket avukatı mahkemede kaybedeceğini anlar ve uzlaşır.</p>
+                    <div style="margin-top:12px; padding-top:12px; border-top: 1px dashed var(--border-color); font-size: 11px;">
+                        <span style="color: var(--success); font-weight: 700;">⏱ Süre: ~30 Gün</span><br>
+                        <span style="color: var(--text-muted);">Karşı Vekalet Riski: <strong style="color:var(--success)">YOK</strong></span>
+                    </div>
+                </div>
+                
+                <div class="step-card medium">
+                    <span class="step-number">2</span>
+                    <h3>2. Adım: Belirsiz Alacak Davası</h3>
+                    <p>Uzlaşma olmazsa, sadece 1.000 TL üzerinden dava açılır. Mahkeme bilirkişisi raporumuzu onayladığı an değer artırılır.</p>
+                    <div style="margin-top:12px; padding-top:12px; border-top: 1px dashed var(--border-color); font-size: 11px;">
+                        <span style="color: var(--accent-color); font-weight: 700;">⏱ Süre: ~6-12 Ay</span><br>
+                        <span style="color: var(--text-muted);">Risk: <strong style="color:var(--accent-color)">Sadece Asgari Maktu</strong></span>
+                    </div>
+                </div>
+                
+                <div class="step-card hard">
+                    <span class="step-number">3</span>
+                    <h3>3. Adım: Sigorta Tahkim / Tam Yargı</h3>
+                    <p>Sigorta inat ederse STK'ya gidilir. Karşı vekalet ücreti kanunen 1/5'tir. İMMS'nin dev bütçesinden tahsilat garanti altına alınır.</p>
+                    <div style="margin-top:12px; padding-top:12px; border-top: 1px dashed var(--border-color); font-size: 11px;">
+                        <span style="color: var(--danger); font-weight: 700;">⏱ Süre: 12-24 Ay</span><br>
+                        <span style="color: var(--text-muted);">Risk: <strong style="color:var(--danger)">KV Ücreti 1/5</strong></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════ SEKME 4: DOSYA YÖNETİMİ ═══════════ -->
+    <div id="tab-dosyalar" class="tab-content">
+        <div class="panel">
+            <h2>📁 Tüm Dosyalar & Durum Takibi</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <div style="font-size: 12px; color: var(--text-muted);">Toplam: <strong id="dosya-count" style="color:var(--accent-color)">0</strong> dosya</div>
+                <div style="display:flex; gap:8px;">
+                    <button class="btn-outline" onclick="exportAllPDF()">📄 Toplu PDF Rapor</button>
+                    <button class="btn-danger" onclick="clearAllFiles()" style="font-size:11px; padding:8px 14px;">🗑️ Tümünü Sil</button>
+                </div>
+            </div>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Müvekkil</th>
+                            <th>İşveren</th>
+                            <th>İşveren Kusuru</th>
+                            <th>İhlal Sayısı</th>
+                            <th>Durum</th>
+                            <th>Tarih</th>
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dosya-list"></tbody>
+                </table>
+                <div class="empty-state" id="dosya-empty">
+                    <div class="empty-state-icon">📁</div>
+                    <h4>Henüz dosya bulunmuyor</h4>
+                    <p>"6331 İSG Kusur Simülatörü" sekmesinden yeni dosya ekleyebilirsiniz.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     JAVASCRIPT
+     ═══════════════════════════════════════════════ -->
+<script>
+// ══════════════════════════════════
+// DATA STORE
+// ══════════════════════════════════
+let dosyalar = JSON.parse(localStorage.getItem('isg_dosyalar') || '[]');
+const CORRECT_PIN = '1470';
+
+// ══════════════════════════════════
+// LOGIN SYSTEM
+// ══════════════════════════════════
+const pinDigits = document.querySelectorAll('.pin-digit');
+pinDigits.forEach((input, i) => {
+    input.addEventListener('input', (e) => {
+        if (e.target.value.length === 1 && i < pinDigits.length - 1) {
+            pinDigits[i + 1].focus();
+        }
+    });
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && !e.target.value && i > 0) {
+            pinDigits[i - 1].focus();
+        }
+        if (e.key === 'Enter') checkPin();
+    });
+});
+
+function checkPin() {
+    const pin = Array.from(pinDigits).map(d => d.value).join('');
+    if (pin === CORRECT_PIN) {
+        document.getElementById('login-screen').classList.add('hidden');
+        showToast('success', 'Giriş başarılı! Hoş geldiniz.');
+    } else {
+        pinDigits.forEach(d => { d.classList.add('error'); d.value = ''; });
+        pinDigits[0].focus();
+        showToast('error', 'Hatalı PIN kodu. Tekrar deneyin.');
+        setTimeout(() => pinDigits.forEach(d => d.classList.remove('error')), 600);
+    }
+}
+
+// ══════════════════════════════════
+// LIVE CLOCK
+// ══════════════════════════════════
+function updateClock() {
+    const opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    document.getElementById('live-clock').textContent = new Date().toLocaleString('tr-TR', opts);
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+// ══════════════════════════════════
+// THEME TOGGLE
+// ══════════════════════════════════
+function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    document.getElementById('theme-icon').textContent = isDark ? '🌙' : '☀️';
+    document.getElementById('theme-label').textContent = isDark ? 'Koyu Tema' : 'Açık Tema';
+    localStorage.setItem('isg_theme', isDark ? 'light' : 'dark');
+}
+
+// Restore theme
+const savedTheme = localStorage.getItem('isg_theme');
+if (savedTheme) {
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    document.getElementById('theme-icon').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+    document.getElementById('theme-label').textContent = savedTheme === 'dark' ? 'Açık Tema' : 'Koyu Tema';
+}
+
+// ══════════════════════════════════
+// SIDEBAR MOBILE
+// ══════════════════════════════════
+function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebar-overlay').classList.toggle('open');
+}
+
+// ══════════════════════════════════
+// TAB SWITCHING
+// ══════════════════════════════════
+function openTab(evt, tabId) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    evt.currentTarget.classList.add('active');
+    // Close mobile sidebar
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebar-overlay').classList.remove('open');
+}
+
+function openTabClick(tabId) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.menu-btn').forEach(b => {
+        b.classList.remove('active');
+        if (b.getAttribute('onclick') && b.getAttribute('onclick').includes(tabId)) {
+            b.classList.add('active');
+        }
+    });
+    document.getElementById(tabId).classList.add('active');
+}
+
+// ══════════════════════════════════
+// DYNAMIC KUSUR CALCULATION
+// ══════════════════════════════════
+function toggleCheck(id) {
+    const cb = document.getElementById(id);
+    cb.checked = !cb.checked;
+    updateKusur();
+}
+
+function updateKusur() {
+    const checkboxes = document.querySelectorAll('.isg-checkboxes input[type="checkbox"]');
+    let total = 0;
+    checkboxes.forEach(cb => {
+        if (cb.checked) total += parseInt(cb.value);
+    });
+    // Cap at 100
+    total = Math.min(total, 100);
+
+    document.getElementById('kusur-value').textContent = `%${total}`;
+    document.getElementById('kusur-bar').style.width = `${total}%`;
+
+    // Color based on value
+    const val = document.getElementById('kusur-value');
+    if (total >= 70) val.style.color = 'var(--danger)';
+    else if (total >= 40) val.style.color = 'var(--accent-color)';
+    else val.style.color = 'var(--success)';
+}
+
+function getSelectedViolations() {
+    const violations = [];
+    const checkboxes = document.querySelectorAll('.isg-checkboxes input[type="checkbox"]');
+    checkboxes.forEach(cb => {
+        if (cb.checked) {
+            const item = cb.closest('.check-item');
+            const tag = item.querySelector('.law-tag').textContent;
+            violations.push(tag);
+        }
+    });
+    return violations;
+}
+
+function getKusurTotal() {
+    const checkboxes = document.querySelectorAll('.isg-checkboxes input[type="checkbox"]');
+    let total = 0;
+    checkboxes.forEach(cb => { if (cb.checked) total += parseInt(cb.value); });
+    return Math.min(total, 100);
+}
+
+// ══════════════════════════════════
+// SIMULATION
+// ══════════════════════════════════
+function runDemoSimulation() {
+    document.getElementById('muvekkil').value = "Ahmet Yılmaz (Paket Servis Kuryesi)";
+    document.getElementById('isveren').value = "Büyük Kargo Lojistik A.Ş.";
+    
+    ['chk-risk', 'chk-egitim', 'chk-kkd', 'chk-riskdeg', 'chk-bildirim'].forEach(id => {
+        document.getElementById(id).checked = true;
+    });
+    updateKusur();
+    showToast('info', 'Demo veriler dolduruldu. "Kusur Analizini Çalıştır" butonuna basabilirsiniz.');
+}
+
+function runSimulation() {
+    const muvekkil = document.getElementById('muvekkil').value.trim();
+    const isveren = document.getElementById('isveren').value.trim();
+    
+    // Validation
+    let hasError = false;
+    document.getElementById('muvekkil').classList.remove('error');
+    document.getElementById('isveren').classList.remove('error');
+
+    if (!muvekkil) {
+        document.getElementById('muvekkil').classList.add('error');
+        hasError = true;
+    }
+    if (!isveren) {
+        document.getElementById('isveren').classList.add('error');
+        hasError = true;
+    }
+
+    const kusur = getKusurTotal();
+    if (kusur === 0) {
+        showToast('warning', 'En az bir yasal ihlal seçmelisiniz!');
+        return;
+    }
+
+    if (hasError) {
+        showToast('error', 'Lütfen zorunlu alanları doldurun.');
+        return;
+    }
+
+    // Check duplicate
+    const isDuplicate = dosyalar.some(d => d.muvekkil === muvekkil && d.isveren === isveren);
+    if (isDuplicate) {
+        showToast('warning', 'Bu müvekkil ve işveren için zaten bir dosya mevcut!');
+        return;
+    }
+
+    // Loading animation
+    const btn = document.getElementById('btn-run-sim');
+    btn.classList.add('loading');
+    btn.textContent = '⏳ Analiz Yapılıyor...';
+
+    setTimeout(() => {
+        btn.classList.remove('loading');
+        btn.textContent = '🚀 Kusur Analizini Çalıştır & Dosya Ekle';
+
+        const violations = getSelectedViolations();
+        const dosya = {
+            id: Date.now(),
+            muvekkil,
+            isveren,
+            kusur,
+            violations,
+            status: 'mutalaa',
+            date: new Date().toLocaleDateString('tr-TR')
+        };
+
+        dosyalar.push(dosya);
+        saveData();
+
+        // Update table in tab-6331
+        addToMatrix(dosya);
+        // Update donut
+        updateDonut(kusur);
+        // Update stats
+        updateGlobalStats();
+        // Render files tab
+        renderDosyalar();
+
+        // Simulation result
+        const violationText = violations.join(', ');
+        const simHtml = `
+            <b>Müvekkil:</b> ${muvekkil}<br>
+            <b>İşveren:</b> ${isveren}<br><br>
+            Dosya polis tutanağında <b>%100 şoför kusurlu</b> görünüyordu.<br><br>
+            Yaptığımız analizde; <b>${violationText}</b> ihlalleri tespit edildi.<br>
+            Gizli ihmaller gün yüzüne çıkarılarak kusurun <b>%${kusur}'${kusur >= 40 ? 'ı' : 'i'} İşverene</b> yıkıldı.<br><br>
+            <b>Sonraki Adım:</b> "Kolaydan Zora İMMS Haritası" sekmesine geçerek bu raporu Arabuluculuk masasında nasıl nakde çevireceğimizi inceleyin.
+        `;
+        document.getElementById('sim-text').innerHTML = simHtml;
+        document.getElementById('sim-result').style.display = 'block';
+
+        showToast('success', `Dosya başarıyla oluşturuldu: ${muvekkil} — İşveren Kusuru %${kusur}`);
+
+        // Clear form
+        document.getElementById('muvekkil').value = '';
+        document.getElementById('isveren').value = '';
+        document.querySelectorAll('.isg-checkboxes input[type="checkbox"]').forEach(cb => cb.checked = false);
+        updateKusur();
+    }, 1200);
+}
+
+function addToMatrix(dosya) {
+    const tbody = document.getElementById('isg-list');
+    document.getElementById('table-empty').style.display = 'none';
+
+    const row = document.createElement('tr');
+    row.id = `row-${dosya.id}`;
+    row.innerHTML = `
+        <td>
+            <strong>${dosya.muvekkil}</strong><br>
+            <span style="font-size:10px; color:var(--text-muted)">İşveren: ${dosya.isveren}</span>
+        </td>
+        <td>
+            <span class="badge danger">Polis: %100 Şoför</span><br>
+            <span class="badge success">İSG: %${dosya.kusur} İŞVEREN</span><br>
+            <span class="badge info">${dosya.violations.length} ihlal</span>
+        </td>
+        <td>
+            <select class="status-select" onchange="updateStatus(${dosya.id}, this.value)">
+                <option value="mutalaa" ${dosya.status === 'mutalaa' ? 'selected' : ''}>📝 Mütalaa Hazırlanıyor</option>
+                <option value="iletildi" ${dosya.status === 'iletildi' ? 'selected' : ''}>📨 İletildi</option>
+                <option value="arabuluculuk" ${dosya.status === 'arabuluculuk' ? 'selected' : ''}>🤝 Arabuluculukta</option>
+                <option value="dava" ${dosya.status === 'dava' ? 'selected' : ''}>⚖️ Dava Aşamasında</option>
+                <option value="tahsil" ${dosya.status === 'tahsil' ? 'selected' : ''}>✅ Tahsil Edildi</option>
+            </select>
+        </td>
+        <td>
+            <button class="btn-danger" onclick="deleteFile(${dosya.id})">🗑️</button>
+        </td>
+    `;
+    tbody.insertBefore(row, tbody.firstChild);
+}
+
+// ══════════════════════════════════
+// DONUT CHART
+// ══════════════════════════════════
+function updateDonut(kusur) {
+    const section = document.getElementById('donut-section');
+    section.style.display = 'flex';
+    
+    const driverPct = 100 - kusur;
+    document.getElementById('donut-chart').style.setProperty('--driver-pct', driverPct);
+    document.getElementById('donut-employer').textContent = `%${kusur}`;
+    document.getElementById('legend-employer').textContent = `%${kusur}`;
+    document.getElementById('legend-driver').textContent = `%${driverPct}`;
+
+    // Update global stat
+    document.getElementById('stat-isg').textContent = `İşveren %${kusur}`;
+}
+
+// ══════════════════════════════════
+// FILE MANAGEMENT
+// ══════════════════════════════════
+function updateStatus(id, newStatus) {
+    const dosya = dosyalar.find(d => d.id === id);
+    if (dosya) {
+        dosya.status = newStatus;
+        saveData();
+        renderDosyalar();
+        const statusLabels = { mutalaa: 'Mütalaa Hazırlanıyor', iletildi: 'İletildi', arabuluculuk: 'Arabuluculukta', dava: 'Dava Aşamasında', tahsil: 'Tahsil Edildi' };
+        showToast('info', `${dosya.muvekkil} → Durum: ${statusLabels[newStatus]}`);
+    }
+}
+
+function deleteFile(id) {
+    if (!confirm('Bu dosyayı silmek istediğinize emin misiniz?')) return;
+    dosyalar = dosyalar.filter(d => d.id !== id);
+    saveData();
+    
+    // Remove from matrix
+    const row = document.getElementById(`row-${id}`);
+    if (row) row.remove();
+    if (dosyalar.length === 0) document.getElementById('table-empty').style.display = 'block';
+    
+    updateGlobalStats();
+    renderDosyalar();
+    showToast('success', 'Dosya silindi.');
+}
+
+function clearAllFiles() {
+    if (!confirm('Tüm dosyaları silmek istediğinize emin misiniz? Bu işlem geri alınamaz.')) return;
+    dosyalar = [];
+    saveData();
+    document.getElementById('isg-list').innerHTML = '';
+    document.getElementById('table-empty').style.display = 'block';
+    document.getElementById('donut-section').style.display = 'none';
+    updateGlobalStats();
+    renderDosyalar();
+    showToast('success', 'Tüm dosyalar silindi.');
+}
+
+function renderDosyalar() {
+    const tbody = document.getElementById('dosya-list');
+    const emptyState = document.getElementById('dosya-empty');
+
+    if (dosyalar.length === 0) {
+        tbody.innerHTML = '';
+        emptyState.style.display = 'block';
+        document.getElementById('dosya-count').textContent = '0';
+        return;
+    }
+
+    emptyState.style.display = 'none';
+    document.getElementById('dosya-count').textContent = dosyalar.length;
+
+    const statusLabels = {
+        mutalaa: '<span class="badge warning">📝 Mütalaa</span>',
+        iletildi: '<span class="badge legal">📨 İletildi</span>',
+        arabuluculuk: '<span class="badge info">🤝 Arabuluculuk</span>',
+        dava: '<span class="badge danger">⚖️ Dava</span>',
+        tahsil: '<span class="badge success">✅ Tahsil Edildi</span>'
+    };
+
+    tbody.innerHTML = dosyalar.map((d, i) => `
+        <tr>
+            <td style="font-weight:700; color:var(--text-muted);">${i + 1}</td>
+            <td><strong>${d.muvekkil}</strong></td>
+            <td>${d.isveren}</td>
+            <td><span style="font-weight:800; color:var(--accent-color);">%${d.kusur}</span></td>
+            <td>${d.violations.length} ihlal</td>
+            <td>
+                <select class="status-select" onchange="updateStatus(${d.id}, this.value)">
+                    <option value="mutalaa" ${d.status === 'mutalaa' ? 'selected' : ''}>📝 Mütalaa</option>
+                    <option value="iletildi" ${d.status === 'iletildi' ? 'selected' : ''}>📨 İletildi</option>
+                    <option value="arabuluculuk" ${d.status === 'arabuluculuk' ? 'selected' : ''}>🤝 Arabuluculuk</option>
+                    <option value="dava" ${d.status === 'dava' ? 'selected' : ''}>⚖️ Dava</option>
+                    <option value="tahsil" ${d.status === 'tahsil' ? 'selected' : ''}>✅ Tahsil Edildi</option>
+                </select>
+            </td>
+            <td style="font-size:11px; color:var(--text-muted);">${d.date}</td>
+            <td><button class="btn-danger" onclick="deleteFile(${d.id})">🗑️</button></td>
+        </tr>
+    `).join('');
+}
+
+function updateGlobalStats() {
+    document.getElementById('stat-dosya').textContent = `${dosyalar.length} Dosya`;
+    if (dosyalar.length > 0) {
+        const lastKusur = dosyalar[dosyalar.length - 1].kusur;
+        document.getElementById('stat-isg').textContent = `İşveren %${lastKusur}`;
+    }
+}
+
+// ══════════════════════════════════
+// FINANCIAL CALCULATOR
+// ══════════════════════════════════
+function parseNumber(str) {
+    return parseFloat(str.replace(/\./g, '').replace(/,/g, '.')) || 0;
+}
+
+function formatTL(num) {
+    return num.toLocaleString('tr-TR', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + ' TL';
+}
+
+function calculateFinance() {
+    const total = parseNumber(document.getElementById('calc-total').value);
+    const lawyerPct = parseFloat(document.getElementById('calc-lawyer-pct').value) || 0;
+    const partnerPct = parseFloat(document.getElementById('calc-partner-pct').value) || 0;
+
+    const lawyerShare = total * (lawyerPct / 100);
+    const partnerShare = lawyerShare * (partnerPct / 100);
+
+    document.getElementById('fin-total').textContent = formatTL(total);
+    document.getElementById('fin-lawyer').textContent = formatTL(lawyerShare);
+    document.getElementById('fin-partner').textContent = formatTL(partnerShare);
+}
+
+// ══════════════════════════════════
+// PDF EXPORT
+// ══════════════════════════════════
+function exportFinancePDF() {
+    const total = document.getElementById('fin-total').textContent;
+    const lawyer = document.getElementById('fin-lawyer').textContent;
+    const partner = document.getElementById('fin-partner').textContent;
+    
+    const content = `
+        <html><head><meta charset="UTF-8"><style>
+        body { font-family: Arial, sans-serif; padding: 40px; color: #1a1a1a; }
+        h1 { color: #d97706; border-bottom: 3px solid #d97706; padding-bottom: 10px; }
+        h2 { color: #333; margin-top: 30px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 14px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background: #f59e0b; color: #000; font-weight: bold; }
+        .highlight { background: #fffbeb; font-weight: bold; }
+        .footer { margin-top: 40px; font-size: 11px; color: #888; text-align: center; border-top: 1px solid #eee; padding-top: 15px; }
+        </style></head><body>
+        <h1>İSG PARTNER — Şeffaf Kazanç Raporu</h1>
+        <p>Tarih: ${new Date().toLocaleDateString('tr-TR')}</p>
+        <h2>Kazanç Dağılımı</h2>
+        <table>
+            <tr><th>Kalem</th><th>Tutar</th></tr>
+            <tr><td>Toplam İMMS Tazminatı</td><td>${total}</td></tr>
+            <tr><td>Avukatın Yasal Payı</td><td>${lawyer}</td></tr>
+            <tr class="highlight"><td>İSG PARTNER Başarı Primi</td><td>${partner}</td></tr>
+        </table>
+        <div class="footer">İSG PARTNER — Şeffaf Çözüm Ortaklığı © 2026 | Tasarlayan: mcınar</div>
+        </body></html>
+    `;
+    const blob = new Blob([content], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'ISG_Partner_Kazanc_Raporu.html'; a.click();
+    URL.revokeObjectURL(url);
+    showToast('success', 'Kazanç raporu indirildi!');
+}
+
+function exportAllPDF() {
+    if (dosyalar.length === 0) {
+        showToast('warning', 'İndirilecek dosya bulunmuyor.');
+        return;
+    }
+    
+    const statusLabels = { mutalaa: 'Mütalaa Hazırlanıyor', iletildi: 'İletildi', arabuluculuk: 'Arabuluculukta', dava: 'Dava Aşamasında', tahsil: 'Tahsil Edildi' };
+
+    let rows = dosyalar.map((d, i) => `
+        <tr>
+            <td>${i + 1}</td>
+            <td>${d.muvekkil}</td>
+            <td>${d.isveren}</td>
+            <td style="font-weight:bold; color:#d97706;">%${d.kusur}</td>
+            <td>${d.violations.join(', ')}</td>
+            <td>${statusLabels[d.status]}</td>
+            <td>${d.date}</td>
+        </tr>
+    `).join('');
+
+    const content = `
+        <html><head><meta charset="UTF-8"><style>
+        body { font-family: Arial, sans-serif; padding: 40px; color: #1a1a1a; }
+        h1 { color: #d97706; border-bottom: 3px solid #d97706; padding-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 12px; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background: #f59e0b; color: #000; font-weight: bold; }
+        .footer { margin-top: 40px; font-size: 11px; color: #888; text-align: center; border-top: 1px solid #eee; padding-top: 15px; }
+        </style></head><body>
+        <h1>İSG PARTNER — Dosya Raporu</h1>
+        <p>Tarih: ${new Date().toLocaleDateString('tr-TR')} | Toplam: ${dosyalar.length} dosya</p>
+        <table>
+            <tr><th>#</th><th>Müvekkil</th><th>İşveren</th><th>Kusur</th><th>İhlaller</th><th>Durum</th><th>Tarih</th></tr>
+            ${rows}
+        </table>
+        <div class="footer">İSG PARTNER — Şeffaf Çözüm Ortaklığı © 2026 | Tasarlayan: mcınar</div>
+        </body></html>
+    `;
+    const blob = new Blob([content], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'ISG_Partner_Tum_Dosyalar.html'; a.click();
+    URL.revokeObjectURL(url);
+    showToast('success', `${dosyalar.length} dosya raporu indirildi!`);
+}
+
+// ══════════════════════════════════
+// TOAST NOTIFICATIONS
+// ══════════════════════════════════
+function showToast(type, message) {
+    const container = document.getElementById('toast-container');
+    const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
+    
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.innerHTML = `
+        <span class="toast-icon">${icons[type]}</span>
+        <span>${message}</span>
+        <button class="toast-close" onclick="this.parentElement.classList.add('removing'); setTimeout(() => this.parentElement.remove(), 300);">✕</button>
+    `;
+    container.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.classList.add('removing');
+        setTimeout(() => toast.remove(), 300);
+    }, 4000);
+}
+
+// ══════════════════════════════════
+// PERSISTENCE
+// ══════════════════════════════════
+function saveData() {
+    localStorage.setItem('isg_dosyalar', JSON.stringify(dosyalar));
+}
+
+// ══════════════════════════════════
+// INIT — Restore from localStorage
+// ══════════════════════════════════
+function initApp() {
+    if (dosyalar.length > 0) {
+        dosyalar.forEach(d => addToMatrix(d));
+        const lastKusur = dosyalar[dosyalar.length - 1].kusur;
+        updateDonut(lastKusur);
+    }
+    updateGlobalStats();
+    renderDosyalar();
+    calculateFinance();
+}
+
+initApp();
+</script>
+</body>
+</html>
