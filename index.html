@@ -811,7 +811,7 @@
             <ul>
                 <li><b>Maddi Rahatlama ve İMMS Tahsilatı:</b> Tam da bu vakalar için önceden kurulmuş ve işverenin aidat ödeyerek kendini güvenceye aldığı "İşveren Mali Mesuliyet Sigortası" (İMMS) fonundan tahsilat yapmayı amaçlıyoruz. Bu durum işvereni de büyük bir maddi yükten kurtarır.</li>
                 <li><b>Sizden Masraf İstemiyoruz:</b> Dosyayı inceler ve 6331 sayılı İSG Kanununa göre HMK m.293 uzman görüşünü (mütalaa) hazırlarız. Başlangıçta cebinizden tek kuruş çıkmaz.</li>
-                <li><b>Sadece Başarıya Ortak Oluyoruz:</b> Hak edilen tahsilat yapıldığında, elde ettiğiniz yasal kazanım üzerinden <b>%20'lik</b> şeffaf bir "Teknik Danışmanlık Başarı Primi" ile çalışırız. Sizi mahkemelerde yormadan, Arabuluculuk ile masada çözüme odaklanırız.</li>
+                <li><b>Sadece Başarıya Ortak Oluyoruz:</b> Hak edilen tahsilat yapıldığında, <b>toplam tazminat üzerinden</b> anlaşılan oranda şeffaf bir "Teknik Danışmanlık Başarı Primi" ile çalışırız. Sizi mahkemelerde yormadan, Arabuluculuk ile masada çözüme odaklanırız.</li>
             </ul>
             <button class="btn-simulate" style="width: auto; padding: 12px 24px; margin-top: 14px;" onclick="openTabClick('tab-6331')">📊 Simülasyonu İncele →</button>
         </div>
@@ -830,7 +830,7 @@
                     </div>
                     <div class="form-group">
                         <label>İSG Partner Primi (%)</label>
-                        <input type="number" class="form-control" id="calc-partner-pct" value="20" min="1" max="50" oninput="calculateFinance()">
+                        <input type="number" class="form-control" id="calc-partner-pct" value="5" min="1" max="50" oninput="calculateFinance()">
                     </div>
                 </div>
             </div>
@@ -851,9 +851,9 @@
                 <div class="finance-row partner-highlight">
                     <div>
                         <span style="color:var(--accent-color); font-size:13px; font-weight:700; display:block;">İSG PARTNER Başarı Primi</span>
-                        <span class="finance-sublabel">Avukatın kazancı üzerinden şeffaf hak ediş.</span>
+                        <span class="finance-sublabel">Toplam tazminat üzerinden şeffaf hak ediş.</span>
                     </div>
-                    <div class="val-partner" id="fin-partner">140.000 TL</div>
+                    <div class="val-partner" id="fin-partner">175.000 TL</div>
                 </div>
             </div>
             <div style="text-align:right; margin-top: 12px;">
@@ -1543,7 +1543,7 @@ function calculateFinance() {
     const partnerPct = parseFloat(document.getElementById('calc-partner-pct').value) || 0;
 
     const lawyerShare = total * (lawyerPct / 100);
-    const partnerShare = lawyerShare * (partnerPct / 100);
+    const partnerShare = total * (partnerPct / 100);
 
     document.getElementById('fin-total').textContent = formatTL(total);
     document.getElementById('fin-lawyer').textContent = formatTL(lawyerShare);
